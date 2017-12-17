@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear/Editar Tipo de Escaneo{% endblock %}
+
+    {% block body %}
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Tipo de Escaneo</a>
+          </li>
+          <li class="breadcrumb-item active">My Dashboard</li>
+      </ol>
+
+      {{ form_start(formulario)}}
+      {{ form_errors(formulario) }}
+
+        <div class="col-md-6">
+          {{ form_widget(formulario) }}
+
+
+      </div>
+    
+</div>
+<a class="btn btn-default" href="{{ path('tipo_escaneo') }}" role="button">Cancelar</a>
+<button class="btn btn-primary" type="submit">Confirmar</button>
+{{ form_end(formulario) }}
+
+{% endblock %}

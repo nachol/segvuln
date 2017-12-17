@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear/Editar Responsable{% endblock %}
+
+    {% block body %}
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Responsable</a>
+          </li>
+          <li class="breadcrumb-item active">Crear/Editar</li>
+      </ol>
+
+      {{ form_start(formulario)}}
+      {{ form_errors(formulario) }}
+
+        <div class="col-md-6">
+          {{ form_widget(formulario) }}
+
+
+
+      </div>
+    
+</div>
+<a class="btn btn-default" href="{{ path('responsable') }}" role="button">Cancelar</a>
+<button class="btn btn-primary" type="submit">Confirmar</button>
+{{ form_end(formulario) }}
+
+{% endblock %}
