@@ -212,6 +212,9 @@
             "ref": "a249484db698d1a847a30291c8f732414ac47e25"
         }
     },
+    "symfony/serializer": {
+        "version": "v3.4.2"
+    },
     "symfony/translation": {
         "version": "3.3",
         "recipe": {

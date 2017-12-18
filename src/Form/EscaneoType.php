@@ -19,7 +19,7 @@ class EscaneoType extends AbstractType
             ->add('fecha', DateType::class,  array(
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
-                'data' => new \DateTime('now')
+                // 'data' => new \DateTime('now')
             ))
             ->add('descripcion')
             ->add('informe')

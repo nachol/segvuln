@@ -44,9 +44,10 @@
             <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('new_tipo_vuln') }}">
                 <span class="fa fa-plus" aria-hidden="true"></span> Nuevo Tipo de Vulnerabilidad
             </a>
-            <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('new_tipo_vuln') }}">
-                <span class="fa fa-plus" aria-hidden="true"></span> Importar Vulnerabilidades
-            </a>
+            <form action="{{ path('import_tipo_vuln') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <button class="btn btn-primary" type="submit"><span class="fa fa-plus" aria-hidden="true"></span> Importar Vulnerabilidades</button>
+            </form>
         </div>
     </div>
 
