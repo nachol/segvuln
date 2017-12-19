@@ -233,9 +233,9 @@ class TipoVulnController extends Controller
                 break;
             }
 
-            //Busco por Descriocion
+            //Busco por idSerpico
             $vuln = $this->getDoctrine()->getManager()->getRepository(TipoVuln::class)->findOneBy([
-                'descripcion' => $vulnerabilidad->title
+                'idSerpico' => $vulnerabilidad->id
             ]);
 
 
@@ -247,14 +247,19 @@ class TipoVulnController extends Controller
                 $tipo_vuln = new TipoVuln();
                 $tipo_vuln->setDescripcion($vulnerabilidad->title);
                 $tipo_vuln->setCriticidad($criticidad);
+                $tipo_vuln->setIdSerpico($vulnerabilidad->id);
 
                 $em->persist($tipo_vuln);
                 
             }else{
                 if($vuln->getCriticidad() != $criticidad){
-                    $tipo_vuln->setCriticidad($criticidad);
-                    $em->persist($tipo_vuln);
+                    $vuln->setCriticidad($criticidad);
                 }
+
+                if($vuln->getDescripcion() != $vulnerabilidad->title){
+                    $tipo_vuln->setDescripcion($vulnerabilidad->title);
+                }
+                $em->persist($vuln);
             }
 
             

@@ -21,6 +21,8 @@
   <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
   <!-- DatePicker -->
   <link href="{{ asset('css/bootstrap-datepicker.css') }}" rel="stylesheet">
+
+  <link href="{{ asset('css/chosen.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -112,6 +114,9 @@
     <script src="{{ asset('vendor/datepicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('vendor/datepicker/bootstrap-datepicker.es.min.js') }}"></script>
 
+    {# Chosen Select #}
+    <script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
+
     {% block javascripts %}
       <script>
       $(document).ready(function () {
@@ -140,6 +145,9 @@
       $(function () {
           $('[data-toggle="tooltip"]').tooltip();
       });
+
+       $(document).find("select").chosen({no_results_text: "Oops, nothing found!"}); 
+
       </script>
     {% endblock %}
 

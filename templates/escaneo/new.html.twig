@@ -102,8 +102,19 @@
 
         // Display the form in the page in an li, before the "Add a tag" link li
         var $newFormLi = $('<li></li>').append(newForm);
+
         $newLinkLi.before($newFormLi);
         addTagFormDeleteLink($newFormLi);
+        $(document).find("select").chosen({no_results_text: "Oops, nothing found!"});
+
+        $('.datepicker').datepicker({
+          todayBtn: "linked",
+          language: "es",
+          autoclose: true,
+          todayHighlight: true,
+          format: 'dd-mm-yyyy',
+          orientation: "bottom right"
+        });
     }
 
     function addTagFormDeleteLink($tagFormLi) {

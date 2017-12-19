@@ -10,6 +10,25 @@
       <li class="breadcrumb-item active">Inicio</li>
     </ol>
 
+    <p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        KPI 31 -  <b>{{ KPI.dias / KPI.totalVulnerabilidades   }}</b>
+      </a>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        Tiempo medio de remediación de vulnerabilidades altas críticas y aceptadas, consumido en los 3 últimos meses.
+        <br>
+        Σ (días dedicadas a remediación) / Σ (Nº Vulnerabilidades que cumplen la condición)
+        <br>
+        Total de dias: <b>{{ KPI.dias }}</b>
+        <br>
+        Total de Vulnerabilidades Altas y Criticas: <b>{{ KPI.totalVulnerabilidades }}</b>
+        <br>
+        RESULTADO: <b>{{ KPI.dias / KPI.totalVulnerabilidades }}</b>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-lg-4">
         <!-- Vulnerabilidades del Mes-->

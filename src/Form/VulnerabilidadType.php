@@ -33,13 +33,15 @@ class VulnerabilidadType extends AbstractType
             ->add('fechaCreacion', DateType::class,  array(
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
-                'data' => new \DateTime('now')
+                'attr' => ['class' => 'datepicker']
+                // 'data' => new \DateTime('now')
             ))
 
             ->add('fechaModificacion', DateType::class,  array(
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
-                'data' => new \DateTime('now')
+                'attr' => ['class' => 'datepicker']
+                // 'data' => new \DateTime('now')
             ))
             ->add('comentario')
 

@@ -39,6 +39,11 @@ class TipoVuln
      */
     private $vulnerabilidades;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default":null})
+     */
+    private $idSerpico;
+
 
     public function __construct()
     {
@@ -116,6 +121,26 @@ class TipoVuln
     public function setCriticidad($criticidad)
     {
         $this->criticidad = $criticidad;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdSerpico()
+    {
+        return $this->idSerpico;
+    }
+
+    /**
+     * @param mixed $criticidad
+     *
+     * @return self
+     */
+    public function setIdSerpico($id)
+    {
+        $this->idSerpico = $id;
 
         return $this;
     }

@@ -40,5 +40,19 @@ class VulnerabilidadRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
         
     }
+
+    public function findByFecha2($criticidad, $fecha)
+    {
+
+        $qb = $this->createQueryBuilder('v')
+        ->join('v.tipo', 't', 'WITH', 'v.tipo = t.id')
+        // ->andWhere('v.estado = 1')
+        ->andWhere('t.criticidad = :criticidad')
+        ->andWhere('v.fechaCreacion >= :fecha')
+        ->setParameters(['criticidad' => $criticidad, 'fecha' => $fecha]);
+
+        return $qb->getQuery()->getResult();
+        
+    }
     
 }
