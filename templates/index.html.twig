@@ -10,6 +10,8 @@
       <li class="breadcrumb-item active">Inicio</li>
     </ol>
 
+    {% if KPI.totalVulnerabilidades > 0 %}
+
     <p>
       <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         KPI 31 -  <b>{{ KPI.dias / KPI.totalVulnerabilidades   }}</b>
@@ -28,6 +30,8 @@
         RESULTADO: <b>{{ KPI.dias / KPI.totalVulnerabilidades }}</b>
       </div>
     </div>
+
+  {% endif %}
 
     <div class="row">
       <div class="col-lg-4">
