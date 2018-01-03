@@ -98,6 +98,15 @@
             "ref": "576d653444dade07f272c889d52fe4594caa4fc3"
         }
     },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "c82bead70f9a4f656354a193df7bf0ca2114efa0"
+        }
+    },
     "symfony/asset": {
         "version": "v3.4.2"
     },
@@ -197,9 +206,6 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
     },
-    "symfony/process": {
-        "version": "v3.4.1"
-    },
     "symfony/property-access": {
         "version": "v3.4.2"
     },
@@ -241,15 +247,6 @@
     },
     "symfony/var-dumper": {
         "version": "v3.4.2"
-    },
-    "symfony/web-server-bundle": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "c72d107d077f1654428edaed69415d0228c1aefe"
-        }
     },
     "symfony/yaml": {
         "version": "v3.4.1"
