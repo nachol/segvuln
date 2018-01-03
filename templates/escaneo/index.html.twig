@@ -22,6 +22,19 @@
                 <th class="col-md-1">Altas</th>
                 <th class="col-md-1">Medias</th>
                 <th class="col-md-2 text-center">
+                    {% if estado is not defined %} 
+                        <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('escaneo', {'estado':1}) }}">
+                            <span class="fa fa-eye" aria-hidden="true"></span>
+
+                            Ver solo Activas
+                        </a>
+                    {% else %}
+                        <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('escaneo') }}">
+                            <span class="fa fa-eye" aria-hidden="true"></span>
+
+                            Ver Todo
+                        </a>
+                    {% endif %}
                 </th>
                 </thead>
                 <tbody>

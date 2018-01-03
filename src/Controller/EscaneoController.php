@@ -21,14 +21,25 @@ class EscaneoController extends Controller
     /**
      * Lista de Escaneos
      * 
-     * @Route("/", name="escaneo"))
+     * @Route("/{estado}", name="escaneo"))
      * @Method("GET")
      */
-    public function index()
+    public function index($estado = null)
     {
-        return ($this->render(
+
+        if($estado == null)
+        {
+            return ($this->render(
             'escaneo/index.html.twig', [
                 'entidades' => $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->findAll()
+                ]
+            ));
+        }
+
+        return ($this->render(
+            'escaneo/index.html.twig', [
+                'entidades' => $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->findByEstadoVulnerabilidad($estado),
+                'estado' => 1
                 ]
             ));
     }
@@ -133,7 +144,7 @@ class EscaneoController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="update_escaneo")
+     * @Route("/put/{id}", name="update_escaneo")
      * @Method("PUT")
      */
     public function update(Request $request, $id)

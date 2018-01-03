@@ -13,16 +13,14 @@ class EscaneoRepository extends ServiceEntityRepository
         parent::__construct($registry, Escaneo::class);
     }
 
-    /*
-    public function findBySomething($value)
+    
+    public function findByEstadoVulnerabilidad($estado)
     {
         return $this->createQueryBuilder('e')
-            ->where('e.something = :value')->setParameter('value', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->join('e.vulnerabilidades', 'v')
+            ->where('v.estado = :estado')->setParameter('estado', $estado)
+            ->getQuery()->getResult()
+            ;
     }
-    */
+    
 }
