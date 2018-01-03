@@ -1,2 +1,3 @@
 *.php linguist-language=PHP
 templates/* linguist-vendored=false
+*.twig linguist-language=PHP
