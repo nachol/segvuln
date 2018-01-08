@@ -120,7 +120,7 @@
           var myPieChart = new Chart(ctx, {
             type: 'pie',
             data: {
-              labels: ["Activas", "Mitigadas", "Aceptadas"],
+              labels: ["Activas", "Remediadas", "Aceptadas"],
               datasets: [{
                 data: [ {{ activas }} , {{ inactivas }} , {{ aceptadas }} ],
                 backgroundColor: ['#d9534f', '#5cb85c', '#428bca'],

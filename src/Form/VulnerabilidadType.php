@@ -23,7 +23,7 @@ class VulnerabilidadType extends AbstractType
             ))
             ->add('estado', ChoiceType::class, array(
                 'choices' => array(
-                    'Inactivo' => 0,
+                    'Remediado' => 0,
                     'Activo' => 1,
                     'Aceptado' => 2
                 ),
