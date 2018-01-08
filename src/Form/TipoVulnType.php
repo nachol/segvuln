@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 
 class TipoVulnType extends AbstractType
@@ -16,9 +18,9 @@ class TipoVulnType extends AbstractType
     {
         $builder
             ->add('descripcion', TextType::class, array(
-            'label' => 'Descripción: ',
+            'label' => 'Nombre: ',
             'required' => true
-        ))
+            ))
             ->add('criticidad', ChoiceType::class, array(
                 'choices' => array(
                     'Crítica' => 0,
@@ -27,6 +29,18 @@ class TipoVulnType extends AbstractType
                 ),
                 'placeholder' => 'Choose an option',
             ))
+            ->add('detalle', TextareaType::class, array(
+            'label' => 'Descripción: ',
+            'required' => false,
+            'attr' => array('rows' => 10),
+            ))
+            ->add('mitigacion', TextareaType::class, array(
+            'label' => 'Mitigación: ',
+            'required' => false,
+            'attr' => array('rows' => 10),
+            ))
+
+
         ;
     }
 

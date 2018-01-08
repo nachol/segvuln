@@ -212,7 +212,6 @@ class TipoVulnController extends Controller
         $vulnerabilidades = json_decode($f->getContents());
         
         foreach ($vulnerabilidades as $vulnerabilidad) {
-
             //Solo criticidades Criticas, Altas y Medias
             if($vulnerabilidad->risk < 2){
                 continue;
@@ -241,6 +240,14 @@ class TipoVulnController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
+            $vulnerabilidad->overview = str_replace('<paragraph>','',$vulnerabilidad->overview);
+            $vulnerabilidad->overview = str_replace('</paragraph>', '',$vulnerabilidad->overview);
+
+            $vulnerabilidad->remediation = str_replace('<paragraph>','',$vulnerabilidad->remediation);
+            $vulnerabilidad->remediation = str_replace('</paragraph>', '' ,$vulnerabilidad->remediation);
+
+
+
             //Si no existe Creo el objeto y lo persisto
             if (count($vuln) == 0) {
 
@@ -248,6 +255,9 @@ class TipoVulnController extends Controller
                 $tipo_vuln->setDescripcion($vulnerabilidad->title);
                 $tipo_vuln->setCriticidad($criticidad);
                 $tipo_vuln->setIdSerpico($vulnerabilidad->id);
+                $tipo_vuln->setDetalle($vulnerabilidad->overview);
+                $tipo_vuln->setMitigacion($vulnerabilidad->remediation);
+
 
                 $em->persist($tipo_vuln);
                 
@@ -257,8 +267,17 @@ class TipoVulnController extends Controller
                 }
 
                 if($vuln->getDescripcion() != $vulnerabilidad->title){
-                    $tipo_vuln->setDescripcion($vulnerabilidad->title);
+                    $vuln->setDescripcion($vulnerabilidad->title);
                 }
+
+                if($vuln->getDetalle() != $vulnerabilidad->overview){
+                    $vuln->setDetalle($vulnerabilidad->overview);
+                }
+
+                if($vuln->getMitigacion() != $vulnerabilidad->remediation){
+                    $vuln->setMitigacion($vulnerabilidad->remediation);
+                }
+
                 $em->persist($vuln);
             }
 

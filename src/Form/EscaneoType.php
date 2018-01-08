@@ -9,6 +9,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class EscaneoType extends AbstractType
 {
@@ -22,7 +24,10 @@ class EscaneoType extends AbstractType
                 // 'data' => new \DateTime('now')
             ))
             ->add('descripcion')
-            ->add('informe')
+            ->add('informe', TextareaType::class, array(
+            'required' => false,
+            'attr' => array('rows' => 3),
+            ))
             ->add('tipo', EntityType::class, array(
                 'class' => TipoEscaneo::class,
                 'choice_label' => 'descripcion',

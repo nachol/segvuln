@@ -25,6 +25,16 @@ class TipoVuln
     private $descripcion;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $detalle;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $mitigacion;
+
+    /**
      * @ORM\Column(type="integer")
      * @Assert\Range(
      *      min = 0,
@@ -168,5 +178,45 @@ class TipoVuln
                 break;
         }
         return "N/A";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDetalle()
+    {
+        return $this->detalle;
+    }
+
+    /**
+     * @param mixed $detalle
+     *
+     * @return self
+     */
+    public function setDetalle($detalle)
+    {
+        $this->detalle = $detalle;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMitigacion()
+    {
+        return $this->mitigacion;
+    }
+
+    /**
+     * @param mixed $mitigacion
+     *
+     * @return self
+     */
+    public function setMitigacion($mitigacion)
+    {
+        $this->mitigacion = $mitigacion;
+
+        return $this;
     }
 }

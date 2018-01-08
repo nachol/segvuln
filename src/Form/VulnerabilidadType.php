@@ -25,7 +25,7 @@ class VulnerabilidadType extends AbstractType
                 'choices' => array(
                     'Remediado' => 0,
                     'Activo' => 1,
-                    'Aceptado' => 2
+                    'Asumido' => 2
                 ),
                 'placeholder' => 'Choose an option',
                 'preferred_choices' => array(1)
