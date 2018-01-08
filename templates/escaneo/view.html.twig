@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver Escaneo{% endblock %}
+
+  {% block body %}
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#">Escaneos</a>
+      </li>
+      <li class="breadcrumb-item active">Ver Escaneo</li>
+    </ol>
+
+    <div class="row">
+      <div class="col-lg-5" data-spy="affix">
+        <h1>ID: {{entidad.id}} - Escaneo a {{entidad.plataforma}}</h1>
+        <p><b>Fecha:</b> {{entidad.fecha|date('d-m-Y')}}</p>
+        <p><b>Tipo:</b> {{entidad.tipo}}</p>
+        <p><b>Cometarios:</b> {{entidad.descripcion != null ? entidad.descripcion : 'N/A' }} </p>
+      </div>
+    </div>
+    <div class="row">
+      <table class="table table-hover" id="myTable">
+                <thead>
+                <th class="col-md-3">Fecha</th>
+                <th class="col-md-3">Modificacion</th>
+                <th class="col-md-3">Estado</th>
+                <th class="col-md-3">Vulnerabilidad</th>
+                <th class="col-md-3">Criticidad</th>
+                </th>
+                </thead>
+                <tbody>
+                    {% for vuln in entidad.vulnerabilidades %}
+                        <tr>
+                            <td>{{ vuln.fechaCreacion|date('d-m-Y') }}</td>
+                            <td>{{ vuln.fechaCreacion|date('d-m-Y') }}</td>
+                            <td>{{ vuln.getStringEstado}}</td>
+                            <td>{{ vuln.tipo.descripcion}}</td>
+                            <td>{{ vuln.tipo.getStringCriticidad}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+    <a class="btn btn-default" href="{{ path('escaneo') }}" role="button">Volver</a>
+  </div>
+{% endblock %}

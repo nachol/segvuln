@@ -165,4 +165,28 @@ class Vulnerabilidad
 
         return $this;
     }
+
+    /**
+     * @param mixed $criticidad
+     *
+     * @return self
+     */
+    public function getStringEstado()
+    {
+        switch ($this->estado) {
+            case 0:
+                return "Remediada";
+                break;
+            case 1:
+                return "Activa";
+                break;
+            case 2:
+                return "Asumida";
+                break;
+            default:
+                
+                break;
+        }
+        return "N/A";
+    }
 }

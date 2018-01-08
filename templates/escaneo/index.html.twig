@@ -109,6 +109,10 @@
                                    {{ path('delete_escaneo', {'id':entidad.id}) }}" data-texto="¿Eliminar el Escaneo <span class='text-danger'>{{ entidad.id|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                 </a>
+                                <a type="button" class="btn btn-default" aria-label="Left Align" href="
+                                   {{ path('view_escaneo', {'id':entidad.id}) }}">
+                                    <span class="fa fa-eye" aria-hidden="true" ></span>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}

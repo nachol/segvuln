@@ -21,7 +21,7 @@ class EscaneoController extends Controller
     /**
      * Lista de Escaneos
      * 
-     * @Route("/{estado}", name="escaneo"))
+     * @Route("/estado/{estado}", name="escaneo"))
      * @Method("GET")
      */
     public function index($estado = null)
@@ -237,6 +237,26 @@ class EscaneoController extends Controller
                 );
             return $this->redirectToRoute('escaneo'); 
         }
+        
+    }
+
+    /**
+     * @Route("/view/{id}", name="view_escaneo")
+     * @Method("GET")
+     */
+    public function view($id)
+    {
+        $escaneo = $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->find($id);
+
+        if (!$escaneo) {
+            throw $this->createNotFoundException('No se ha encontrado el Escaneo seleccionado.');
+        }
+
+        return $this->render(
+                'escaneo/view.html.twig', [
+                'entidad' => $escaneo
+                ]
+        );
         
     }
 
