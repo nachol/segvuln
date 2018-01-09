@@ -299,4 +299,24 @@ class TipoVulnController extends Controller
             return $this->redirectToRoute('tipo_vuln'); 
         }
     }
+
+    /**
+     * @Route("/view/{id}", name="view_tipo_vuln")
+     * @Method("GET")
+     */
+    public function view($id)
+    {
+        $tipo_vuln = $this->getDoctrine()->getManager()->getRepository(TipoVuln::class)->find($id);
+
+        if (!$tipo_vuln) {
+            throw $this->createNotFoundException('No se ha encontrado el Tipo de Vuln seleccionado.');
+        }
+
+        return $this->render(
+            'tipo_vuln/view.html.twig', [
+                'entidad' => $tipo_vuln
+            ]
+        );    
+        
+    }
 }

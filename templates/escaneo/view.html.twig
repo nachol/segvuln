@@ -11,7 +11,7 @@
     </ol>
 
     <div class="row">
-      <div class="col-lg-5" data-spy="affix">
+      <div class="col-lg-6" data-spy="affix">
         <h1>ID: {{entidad.id}} - Escaneo a {{entidad.plataforma}}</h1>
         <p><b>Fecha:</b> {{entidad.fecha|date('d-m-Y')}}</p>
         <p><b>Tipo:</b> {{entidad.tipo}}</p>
@@ -19,6 +19,7 @@
       </div>
     </div>
     <div class="row">
+    <div class="col-md-10 col-md-offset-1">
       <table class="table table-hover" id="myTable">
                 <thead>
                 <th class="col-md-3">Fecha</th>
@@ -34,12 +35,13 @@
                             <td>{{ vuln.fechaCreacion|date('d-m-Y') }}</td>
                             <td>{{ vuln.fechaCreacion|date('d-m-Y') }}</td>
                             <td>{{ vuln.getStringEstado}}</td>
-                            <td>{{ vuln.tipo.descripcion}}</td>
+                            <td><a href="{{ path('view_tipo_vuln', {'id' : vuln.id})}}">{{ vuln.tipo.descripcion}}</a></td>
                             <td>{{ vuln.tipo.getStringCriticidad}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
     </div>
     <a class="btn btn-default" href="{{ path('escaneo') }}" role="button">Volver</a>
   </div>

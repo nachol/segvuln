@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Info de Vulnerabilidad{% endblock %}
+
+    {% block body %}
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Tipos de Vulnerabilidades</a>
+          </li>
+          <li class="breadcrumb-item active">Info de Vulnerabilidad</li>
+      </ol>
+      <div class="row">
+        <div class="col-md-6">
+          <h1>ID: {{entidad.id}} - {{entidad.descripcion}}</h1>
+          <p><b>Id de Serpico:</b> {{entidad.idSerpico}}</p>
+          <p><b>Criticidad:</b> {{entidad.getStringCriticidad}}</p>
+          <p><b>Descripcion:</b> {{entidad.detalle}}</p>
+          <p><b>Mitigación:</b> {{entidad.mitigacion}}</p>
+
+      </div>
+    </div>
+</div>
+<a class="btn btn-default" href="javascript:history.back()" role="button">Cancelar</a>
+{% endblock %}

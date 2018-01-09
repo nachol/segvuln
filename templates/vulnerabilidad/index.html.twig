@@ -29,7 +29,7 @@
                             <td>{{ entidad.escaneo.plataforma }}</td>
                             <td>{{ entidad.fechaCreacion|date('d-m-Y') }}</td>
                             <td>{{ entidad.fechaCreacion|date('d-m-Y') }}</td>
-                            <td>{{ entidad.tipo.descripcion}}</td>
+                            <td><a href="{{ path('view_tipo_vuln', {'id' : entidad.tipo.id})}}">{{ entidad.tipo.descripcion}}</a></td>
                             <td>{{ entidad.tipo.getStringCriticidad}}</td>
 
 
