@@ -15,6 +15,7 @@
         <h1>ID: {{entidad.id}} - Escaneo a {{entidad.plataforma}}</h1>
         <p><b>Fecha:</b> {{entidad.fecha|date('d-m-Y')}}</p>
         <p><b>Tipo:</b> {{entidad.tipo}}</p>
+        <p><b>Informe:</b> <a href="{{entidad.informe}}">{{entidad.informe}}</a></p>
         <p><b>Cometarios:</b> {{entidad.descripcion != null ? entidad.descripcion : 'N/A' }} </p>
       </div>
     </div>
