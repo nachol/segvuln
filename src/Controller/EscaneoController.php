@@ -10,6 +10,10 @@ use App\Entity\Escaneo;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\EscaneoType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
 
 /**
  * 
@@ -273,6 +277,69 @@ class EscaneoController extends Controller
                 ]
         );
         
+    }
+
+    /**
+     * Lista de Escaneos
+     * 
+     * @Route("/export/{estado}", name="export"))
+     * @Method("GET")
+     */
+    public function csvExport($estado = null){
+        
+        if(!$estado){
+            $escaneos = $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->findAll();
+
+        }else{
+            $escaneos = $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->findByEstadoVulnerabilidad($estado);
+        }
+
+        $data;
+
+        foreach ($escaneos as $escaneo) {
+            $critica = 0;
+            $alta = 0;
+            $media = 0;
+
+            foreach ($escaneo->getVulnerabilidades() as $vuln) {
+                if ($vuln->getTipo()->getCriticidad() == 0 and $vuln->getEstado() == 1){
+                    $critica = $critica + 1;
+                }
+
+                if ($vuln->getTipo()->getCriticidad() == 1 and $vuln->getEstado() == 1){
+                    $alta = $alta + 1;
+                }
+
+                if ($vuln->getTipo()->getCriticidad() == 2 and $vuln->getEstado() == 1){
+                    $media = $media + 1;
+                }
+            }
+            
+
+            $data[] = [
+                "Plataforma" => $escaneo->getPlataforma()->getDescripcion(),
+                "Tipo" => $escaneo->getTipo()->getDescripcion(),
+                "Fecha" => $escaneo->getFecha()->format('d-m-Y'),
+                "Responsable" => $escaneo->getPlataforma()->getResponsable(),
+                "Criticas" => $critica,
+                "Alta" => $alta,
+                "Medias" => $media,
+                "Responsable" => $escaneo->getPlataforma()->getResponsable()
+            ];
+        }
+
+        $file = tempnam(sys_get_temp_dir(), 'Report-');;
+
+        $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+
+        $serializer->encode($data, 'csv');
+
+        file_put_contents(
+            $file.'.csv',
+            $serializer->encode($data, 'csv')
+        );
+
+        return $this->file($file.'.csv');
     }
 
 }

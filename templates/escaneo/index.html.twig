@@ -122,6 +122,21 @@
             <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('adm_escaneo_new') }}">
                 <span class="fa fa-plus" aria-hidden="true"></span> Nuevo Escaneo
             </a>
+
+
+
+            {% if estado is not defined %} 
+                <a type="button" class="btn btn-primary" aria-label="Left Align" href="{{ path('export') }}">
+
+            {% else %}
+                <a type="button" class="btn btn-primary" aria-label="Left Align" href="{{ path('export', {'estado':1}) }}">
+
+            {% endif %}
+                <span class="fa fa-file-excel-o" aria-hidden="true"></span>
+
+                Export
+            </a>
+
             * ACTIVAS / REMEDIADAS / ASUMIDAS
         </div>
     </div>

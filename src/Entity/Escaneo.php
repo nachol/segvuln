@@ -172,4 +172,10 @@ class Escaneo
     {
         $this->plataforma = $plataforma;
     }
+
+    public function __toString()
+    {
+        
+        return $this->plataforma->getDescripcion();
+    }
 }
