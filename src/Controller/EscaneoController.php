@@ -86,8 +86,23 @@ class EscaneoController extends Controller
         $form = $this->createForm(EscaneoType::class, $escaneo);
 
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Check if bulk creation
+            foreach ($escaneo->getVulnerabilidades() as $vuln) {
+
+
+                if ($vuln->getCantidad() > 1){
+
+                    for($i=1; $i < $vuln->getCantidad(); $i++){
+                        $vuln2 = clone $vuln;
+
+                        $escaneo->addVulnerabilidad($vuln2);
+                    }
+                }
+            }
+
             $em = $this->getDoctrine()->getManager();
             try{
                 $em->persist($escaneo);

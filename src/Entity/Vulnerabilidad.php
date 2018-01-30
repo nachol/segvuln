@@ -57,6 +57,8 @@ class Vulnerabilidad
      */
     private $comentario;
 
+    private $cantidad;
+
     /**
      * @return mixed
      */
@@ -162,6 +164,27 @@ class Vulnerabilidad
     public function setComentario($comentario)
     {
         $this->comentario = $comentario;
+
+        return $this;
+    }
+
+
+        /**
+     * @return mixed
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * @param mixed $fechaModificacion
+     *
+     * @return self
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
 
         return $this;
     }

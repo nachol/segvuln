@@ -4,6 +4,7 @@ namespace App\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\Escaneo;
+use App\Entity\TipoVuln;
 use App\Entity\TipoEscaneo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,7 +43,6 @@ class EscaneoType extends AbstractType
                 'class' => 'my-selector',
                 ),
             ))
-
         ;
     }
 

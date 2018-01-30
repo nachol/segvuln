@@ -9,7 +9,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 
 class VulnerabilidadType extends AbstractType
@@ -33,8 +35,8 @@ class VulnerabilidadType extends AbstractType
             ->add('fechaCreacion', DateType::class,  array(
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
-                'attr' => ['class' => 'datepicker']
-                // 'data' => new \DateTime('now')
+                'attr' => ['class' => 'datepicker'],
+                //'empty_data' => new \DateTime('now')
             ))
 
             ->add('fechaModificacion', DateType::class,  array(
@@ -44,6 +46,12 @@ class VulnerabilidadType extends AbstractType
                 // 'data' => new \DateTime('now')
             ))
             ->add('comentario')
+            ->add('cantidad', IntegerType::class, array(
+                //'mapped' => false,
+                'data' => 1,
+                'label' => 'Cantidad (for bulk creation)',
+                'scale' => 0
+            ))
 
         ;
     }

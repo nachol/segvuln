@@ -24,23 +24,20 @@
           <a class="btn btn-default" href="{{ path('escaneo') }}" role="button">Cancelar</a>
           <button class="btn btn-primary" type="submit">Confirmar</button>
       </div>
-      <div class="col-lg-9">
-        
+        <div class="col-lg-9">
+              <ul class="vulnerabilidades" data-prototype="{{ form_widget(formulario.vulnerabilidades.vars.prototype)|e('html_attr') }}">
+                {% for vuln in  formulario.vulnerabilidades%}
+                  <li>
+                  {{form_widget(vuln)}}
+                  </li>
+                {% endfor %}
+              </ul>
+            {{ form_end(formulario) }}
 
-        <ul class="vulnerabilidades" data-prototype="{{ form_widget(formulario.vulnerabilidades.vars.prototype)|e('html_attr') }}">
-          {% for vuln in  formulario.vulnerabilidades%}
-            <li>
-            {{form_widget(vuln)}}
-            </li>
-          {% endfor %}
-        </ul>
-    </div>
       </div>
-      
-    
+    </div>
 </div>
 
-{{ form_end(formulario) }}
 
 {% endblock %}
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Vulnerabilidad;
 
 
@@ -16,26 +17,26 @@ class DefaultController extends Controller
     public function index()
     {
         
-
-    	$date = new \DateTime('first day of this month');
-
         return ($this->render(
             'index.html.twig', [
-                'criticas' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findActivas(0)),
-                'altas' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findActivas(1)),
-                'medias' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findActivas(2)),
-                'criticasMes' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findByFecha(0, $date)),
-                'altasMes' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findByFecha(1, $date)),
-                'mediasMes' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findByFecha(2, $date)),
-                'activas' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findBy(['estado' => 1])),
-                'inactivas' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findBy(['estado' => 0])),
-                'aceptadas' => count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findBy(['estado' => 2])),
+                'criticas' => $this->getCriticas(),
+                'altas' => $this->getAltas(),
+                'medias' => $this->getMedias(),
+                'criticasMes' => $this->getCriticasMes(),
+                'altasMes' => $this->getAltasMes(),
+                'mediasMes' => $this->getMediasMes(),
+                'activas' => $this->getActivas(),
+                'inactivas' => $this->getRemediadas(),
+                'aceptadas' => $this->getAceptadas(),
                 'KPI' => $this->calcularKPI()
                 ]
             ));
     }
 
-    public function calcularKPI()
+    /**
+     * @Route("/API/kpi", name="api_kpi")
+     */
+    public function calcularKPI(Request $request=null)
     {
 
         $totalDias = 0;
@@ -69,6 +70,181 @@ class DefaultController extends Controller
             } 
         }
 
-        return ['dias' => $totalDias, 'totalVulnerabilidades' => $totalVulnerabilidades];
+        $result = [
+            'dias' => $totalDias,
+            'totalVulnerabilidades' => $totalVulnerabilidades,
+            'resultado' => $totalDias/$totalVulnerabilidades
+        ];
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result;
+    }
+
+     /**
+     * @Route("/API/criticas", name="api_criticas")
+     */
+    public function getCriticas(Request $request=null)
+    {
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findActivas(0));
+        
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result;
+    }
+
+    /**
+     * @Route("/API/altas", name="api_altas")
+     */
+    public function getAltas(Request $request=null)
+    {
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findActivas(1));
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result;
+    }
+
+    /**
+     * @Route("/API/medias", name="api_medias")
+     */
+    public function getMedias(Request $request=null)
+    {
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findActivas(2));
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result;
+    }
+
+    /**
+     * @Route("/API/criticas/mes", name="api_criticas_mes")
+     */
+    public function getCriticasMes(Request $request=null)
+    {
+
+        $date = new \DateTime('first day of this month');
+
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findByFecha(0, $date));
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result;
+    }
+
+    /**
+     * @Route("/API/altas/mes", name="api_altas_mes")
+     */
+    public function getAltasMes(Request $request=null)
+    {
+
+        $date = new \DateTime('first day of this month');
+
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findByFecha(1, $date));
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result; 
+    }
+
+    /**
+     * @Route("/API/medias/mes", name="api_medias_mes")
+     */
+    public function getMediasMes(Request $request=null)
+    {
+
+        $date = new \DateTime('first day of this month');
+
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findByFecha(2, $date));
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result; 
+    }
+
+    /**
+     * @Route("/API/activas", name="api_activas")
+     */
+    public function getActivas(Request $request=null)
+    {
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findBy(['estado' => 1]));
+
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result; 
+
+    }
+
+    /**
+     * @Route("/API/remediadas", name="api_remediadas")
+     */
+    public function getRemediadas(Request $request=null)
+    {
+
+
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findBy(['estado' => 0]));
+
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result; 
+
+    }
+
+    /**
+     * @Route("/API/aceptadas", name="api_aceptadas")
+     */
+    public function getAceptadas(Request $request=null)
+    {
+
+
+        $result = count($this->getDoctrine()->getManager()->getRepository(Vulnerabilidad::class)->findBy(['estado' => 2]));
+
+
+        if($request){
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            return $response;
+        }
+        
+        return $result; 
+
     }
 }
