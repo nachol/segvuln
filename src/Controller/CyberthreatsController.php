@@ -66,18 +66,19 @@ class CyberthreatsController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             try{
                 $em->persist($cyberthreats);
                 $em->flush();
                 $this->addFlash(
                     'notice',
-                    'Cyberthreat grabado exitosamente!'
+                    'Registro creado exitosamente!'
                 );
             }  catch (\Exception $e){
                 $this->addFlash(
                     'error',
-                    'No se ha podido Crear el Cyberthreat!'
+                    'No se ha podido crear el registro!'
                 );
             }
             
@@ -88,7 +89,7 @@ class CyberthreatsController extends Controller
 
         $this->addFlash(
                 'error',
-                'Hubo un error intentando crear El Cyberthreat!'
+                'Hubo un error intentando crear el registro!'
             );
         return $this->render(
                 'tipo_escaneo/new.html.twig', [
@@ -106,7 +107,7 @@ class CyberthreatsController extends Controller
         $cyberthreat = $this->getDoctrine()->getManager()->getRepository(Cyberthreats::class)->find($id);
 
         if (!$cyberthreat) {
-            throw $this->createNotFoundException('No se ha encontrado la Amenaza.');
+            throw $this->createNotFoundException('No se ha encontrado el registro.');
         }
 
         $form = $this->createForm(CyberthreatsType::class, $cyberthreat, [
@@ -131,7 +132,7 @@ class CyberthreatsController extends Controller
     	$cyberthreat = $this->getDoctrine()->getManager()->getRepository(Cyberthreats::class)->find($id);
 
     	if (!$cyberthreat) {
-            throw $this->createNotFoundException('No se ha encontrado la Amenaza.');
+            throw $this->createNotFoundException('No se ha encontrado el registro.');
         }
 
         $form = $this->createForm(CyberthreatsType::class, $cyberthreat, ['method' => "PUT"]);
@@ -153,7 +154,7 @@ class CyberthreatsController extends Controller
         	}catch (\Exception $ex) {
                 $this->addFlash(
                     'error',
-                    'Error al tratar de editar la Amenaza!'
+                    'Error al tratar de editar el registro!'
                 );
                 return $this->redirectToRoute('cyberthreats');
             }
@@ -161,7 +162,7 @@ class CyberthreatsController extends Controller
 
         $this->addFlash(
                 'error',
-                'Hubo un error intentando guardar la Amenaza!'
+                'Hubo un error intentando guardar el registro!'
             );
         return $this->render(
                 'cyberthreats/new.html.twig', [
@@ -180,7 +181,7 @@ class CyberthreatsController extends Controller
         $cyberthreat = $this->getDoctrine()->getManager()->getRepository(Cyberthreats::class)->find($id);
         
         if (!$cyberthreat) {
-            throw $this->createNotFoundException('No se ha encontrado la Amenaza.');
+            throw $this->createNotFoundException('No se ha encontrado el registro.');
         }
         
         $em = $this->getDoctrine()->getManager();
@@ -189,13 +190,13 @@ class CyberthreatsController extends Controller
             $em->flush();
             $this->addFlash(
                     'notice',
-                    'Amenaza borrada exitosamente!'
+                    'Registro borrado exitosamente!'
                 );
             return $this->redirectToRoute('cyberthreats'); 
         } catch (\Exception $ex) {
             $this->addFlash(
                     'error',
-                    'Error al intentar Borrar la Amenaza!'
+                    'Error al intentar borrar el registro!'
                 );
             return $this->redirectToRoute('cyberthreats'); 
         }

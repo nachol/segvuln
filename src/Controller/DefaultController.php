@@ -70,10 +70,17 @@ class DefaultController extends Controller
             } 
         }
 
+        // Por error de division por 0 si no hay vulnerabilidades
+        if($totalVulnerabilidades>0) {
+            $promDias = $totalDias/$totalVulnerabilidades;
+        }else{
+            $promDias = 0;
+        }
+
         $result = [
             'dias' => $totalDias,
             'totalVulnerabilidades' => $totalVulnerabilidades,
-            'resultado' => $totalDias/$totalVulnerabilidades
+            'resultado' => $promDias
         ];
 
         if($request){

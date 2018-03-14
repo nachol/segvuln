@@ -379,4 +379,15 @@ class Cyberthreats
             return $this->notificacion->diff($this->cierre)->format('%a');
         }
     }
+
+    /**
+     * @Assert\IsTrue(message="Falta fecha de cierre para el estado cerrado")
+     */
+    public function isCierreValid()
+    {
+        if($this->estado == 1 and $this->cierre == null){
+            return false;
+        }
+        return true;
+    }
 }
