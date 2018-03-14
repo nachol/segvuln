@@ -118,8 +118,8 @@
           //Estado de vulnerabilidades
           var ctx = document.getElementById("estado");
           var myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
+              type: 'pie',
+              data: {
               labels: ["Activas", "Remediadas", "Aceptadas"],
               datasets: [{
                 data: [ {{ activas }} , {{ inactivas }} , {{ aceptadas }} ],

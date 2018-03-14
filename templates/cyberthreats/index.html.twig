@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Índice de Cyberthreads{% endblock %}
+
+{% block body %}
+<ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Cyberthreads</a>
+        </li>
+        <li class="breadcrumb-item active">Índice de Cyberthreads</li>
+      </ol>
+
+<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <table class="table table-hover" id="myTable">
+                <thead>
+                <th class="col-md-2">Referencia</th>
+                <th class="col-md-3">Tipo</th>
+                <th class="col-md-1">Riesgo</th>
+                <th class="col-md-1">Deteccion</th>
+                <th class="col-md-1">Notificacion</th>
+                <th class="col-md-1">Cierre</th>
+                <th class="col-md-1">Dias</th>
+                <th class="col-md-1">Estado</th>
+                <th class="col-md-2 text-center">
+                </th>
+                </thead>
+                <tbody>
+                    {% for entidad in entidades %}
+                        <tr>
+                            <td>{{ entidad.referencia }}</td>
+                            <td>{{ entidad.getStringTipo }}</td>
+                            <td>{{ entidad.getStringRiesgo }}</td>
+                            <td>{{ entidad.deteccion|date('d-m-Y')}}</td>
+                            <td>
+                                {% if entidad.notificacion is not null %}
+                                    {{ entidad.notificacion|date('d-m-Y')}}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if entidad.cierre is not null %}
+
+                                    {{ entidad.cierre|date('d-m-Y')}}
+                                {% endif %}
+
+                            </td>
+                            <td>
+                                    {{ entidad.getDias }}
+                            </td>
+
+                            <td>{{ entidad.getStringEstado }}</td>
+                            <td class="text-center">
+                                <a type="button" class="btn btn-default" aria-label="Left Align" href="
+                                   {{ path('edit_cyberthreat', {'id':entidad.id}) }}">
+                                    <span class="fa fa-pencil" aria-hidden="true" ></span>
+                                </a>
+                                <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
+                                   {{ path('delete_cyberthreat', {'id':entidad.id}) }}" data-texto="¿Eliminar la Amenaza <span class='text-danger'>{{ entidad.id|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
+                                    <span class="fa fa-trash" aria-hidden="true"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('new_cyberthreat') }}">
+                <span class="fa fa-plus" aria-hidden="true"></span> Nueva Amenaza
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
