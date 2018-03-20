@@ -45,7 +45,7 @@
                 <span class="fa fa-plus" aria-hidden="true"></span> Nuevo Tipo de Vulnerabilidad
             </a>
             <form action="{{ path('import_tipo_vuln') }}" method="post" enctype="multipart/form-data">
-                <input type="file" name="fileToUpload" id="fileToUpload">
+                <input type="file" name="fileToUpload" id="fileToUpload" required>
                 <button class="btn btn-primary" type="submit"><span class="fa fa-plus" aria-hidden="true"></span> Importar Vulnerabilidades</button>
             </form>
         </div>
