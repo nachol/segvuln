@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Índice de Cyberthreads{% endblock %}
+{% block title %}Índice de Cyberthreats{% endblock %}
 
 {% block body %}
 <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">Cyberthreads</a>
+          <a href="#">Cyberthreats</a>
         </li>
-        <li class="breadcrumb-item active">Índice de Cyberthreads</li>
+        <li class="breadcrumb-item active">Índice de Cyberthreats</li>
       </ol>
 
 <div class="row">
@@ -15,7 +15,7 @@
             <table class="table table-hover" id="myTable">
                 <thead>
                 <th class="col-md-1">Referencia</th>
-                <th class="col-md-3">Tipo</th>
+                <th class="col-md-2">Tipo</th>
                 <th class="col-md-1">Riesgo</th>
                 <th class="col-md-1">Deteccion</th>
                 <th class="col-md-1">Notificacion</th>
@@ -55,8 +55,12 @@
                                     <span class="fa fa-pencil" aria-hidden="true" ></span>
                                 </a>
                                 <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
-                                   {{ path('delete_cyberthreat', {'id':entidad.id}) }}" data-texto="¿Eliminar la Amenaza <span class='text-danger'>{{ entidad.id|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
+                                   {{ path('delete_cyberthreat', {'id':entidad.id}) }}" data-texto="¿Eliminar la Amenaza <span class='text-danger'>{{ entidad.referencia|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
                                     <span class="fa fa-trash" aria-hidden="true"></span>
+                                </a>
+                                <a type="button" class="btn btn-default" aria-label="Left Align" href="
+                                   {{ path('view_cyberthreat', {'id':entidad.id}) }}">
+                                    <span class="fa fa-eye" aria-hidden="true" ></span>
                                 </a>
                             </td>
                         </tr>
