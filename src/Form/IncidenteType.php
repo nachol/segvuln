@@ -41,6 +41,12 @@ class IncidenteType extends AbstractType
                 'placeholder' => 'Choose an option',
                 'expanded' => true
             ))
+            ->add('cierre', DateType::class,  array(
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'attr' => ['class' => 'datepicker'],
+                'required' => false,
+            ))
         ;
     }
 
