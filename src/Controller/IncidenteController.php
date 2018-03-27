@@ -67,7 +67,9 @@ class IncidenteController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
         	if($incidente->getEstado() == true){
-        		$incidente->setCierre(new \DateTime("NOW"));
+                if($incidente->getCierre() == null){
+                    $incidente->setCierre(new \DateTime("NOW"));    
+                }
         	}
 
             $em = $this->getDoctrine()->getManager();
