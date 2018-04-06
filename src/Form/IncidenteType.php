@@ -33,6 +33,16 @@ class IncidenteType extends AbstractType
                 'expanded' => true
             ))
             ->add('descripcion')
+            ->add('criticidad', ChoiceType::class, array(
+                'choices' => array(
+                    'Crítico' => 3,
+                    'Alto' => 2,
+                    'Medio' => 1,
+                    'Bajo' => 0
+                ),
+                'placeholder' => 'Elija Criticidad',
+                'expanded' => true
+            ))
             ->add('estado', ChoiceType::class, array(
                 'choices' => array(
                     'Cerrado' => true,

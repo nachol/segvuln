@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Info de Vulnerabilidad{% endblock %}
+{% block title %}Info de Incidente{% endblock %}
 
     {% block body %}
         <ol class="breadcrumb">
@@ -11,12 +11,13 @@
       </ol>
       <div class="row">
         <div class="col-md-6">
-          <h1>ID: {{entidad.id}} - {{entidad.descripcion}}</h1>
-          <p><b>Id de Serpico:</b> {{entidad.idSerpico}}</p>
-          <p><b>Criticidad:</b> {{entidad.getStringCriticidad}}</p>
-          <p><b>Descripcion:</b> {{entidad.detalle}}</p>
-          <p><b>Mitigación:</b> {{entidad.mitigacion}}</p>
-
+          <h1>ID: {{entidad.id}} - {{entidad.nombre}}</h1>
+          <p><b>Ticket:</b> {{entidad.ticket}}</p>
+          <p><b>Fecha Creacion:</b> {{entidad.fecha}}</p>
+          <p><b>Criticidad:</b> {{entidad.criticidad}}</p>
+          <p><b>Descripcion:</b> {{entidad.descripcion}}</p>
+          <p><b>Estado:</b> {{entidad.estado}}</p>
+          <p><b>Fecha Cierre:</b> {{entidad.cierre}}</p>
       </div>
     </div>
 </div>

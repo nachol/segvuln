@@ -42,6 +42,17 @@ class Incidente
     private $informe;
 
     /**
+     * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 3
+     * )
+     * 0-Bajo, 1-Medio, 2-Alto, 3-Critico
+     */
+    private $criticidad;
+
+
+    /**
      * @ORM\Column(type="string")
      */
     private $descripcion;
@@ -280,4 +291,52 @@ class Incidente
         }
         return "N/A";
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCriticidad()
+    {
+        return $this->criticidad;
+    }
+
+    /**
+     * @param mixed $criticidad
+     *
+     * @return self
+     */
+    public function setCriticidad($criticidad)
+    {
+        $this->criticidad = $criticidad;
+
+        return $this;
+    }
+
+        /**
+     * @param mixed $criticidad
+     *
+     * @return self
+     */
+    public function getStringCriticidad()
+    {
+        switch ($this->criticidad) {
+            case 0:
+                return "BAJO";
+                break;
+            case 1:
+                return "MEDIO";
+                break;
+            case 2:
+                return "ALTO";
+                break;
+            case 3:
+                return "CRITICO";
+                break;
+            default:
+                
+                break;
+        }
+        return "N/A";
+    }
+
 }
