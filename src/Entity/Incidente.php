@@ -42,7 +42,7 @@ class Incidente
     private $informe;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      * @Assert\Range(
      *      min = 0,
      *      max = 3
