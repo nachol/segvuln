@@ -4,6 +4,7 @@
 Herramienta para seguimiento de vulnerabilidades desarrollada en Synfony 4.
 
 #Dependencias
+
 	sudo apt install php php-sqlite3 php-xml php-ldap
 	
 #Instalación:
