@@ -3,7 +3,10 @@
 
 Herramienta para seguimiento de vulnerabilidades desarrollada en Synfony 4.
 
-Instalación:
+#Dependencias
+	sudo apt install php php-sqlite3 php-xml php-ldap
+	
+#Instalación:
 
 1. Clonar el respositorio:
 
@@ -13,6 +16,7 @@ Instalación:
 
 2. Crear archivo del entorno ```.env```:
 
+Ejemplo:
 
 	    # This file is a "template" of which env vars need to be defined for your application
 	    # Copy this file to .env file for development, create environment variables when deploying to production
@@ -57,9 +61,9 @@ Instalación:
 		Componentes --> Tipos de Vulnerabilidad --> Choose File --> Importar Vulnerabilidades
 
 
-		File Template:
+	File Template:
 
-		
+```		
 		    [
 		      {
 		        "id": 41,
@@ -103,3 +107,4 @@ Instalación:
 		        "ease": null
 		      }
 	  	    ]
+```
