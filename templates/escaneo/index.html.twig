@@ -4,16 +4,16 @@
 
 {% block body %}
 <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Escaneos</a>
-        </li>
-        <li class="breadcrumb-item active">Indice de Escaneos</li>
-      </ol>
+    <li class="breadcrumb-item">
+      <a href="#">Escaneos</a>
+  </li>
+  <li class="breadcrumb-item active">Indice de Escaneos</li>
+</ol>
 
 <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <table class="table table-hover" id="myTable">
-                <thead>
+    <div class="col-md-12 col-md-offset-1">
+        <table class="table table-hover" id="myTable">
+            <thead>
                 <th class="col-md-1">Id</th>
                 <th class="col-md-2">Fecha</th>
                 <th class="col-md-1">Tipo</th>
@@ -23,122 +23,123 @@
                 <th class="col-md-1">Medias</th>
                 <th class="col-md-2 text-center">
                     {% if estado is not defined %} 
-                        <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('escaneo', {'estado':1}) }}">
-                            <span class="fa fa-eye" aria-hidden="true"></span>
+                    <a type="button" class="btn btn-sm btn pull-right" aria-label="Left Align" href="{{ path('escaneo', {'estado':1}) }}">
+                        <span class="fa fa-eye" aria-hidden="true"></span>
 
-                            Ver solo Activas
-                        </a>
+                        Activas
+                    </a>
                     {% else %}
-                        <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('escaneo') }}">
-                            <span class="fa fa-eye" aria-hidden="true"></span>
+                    <a type="button" class="btn btn btn-sm pull-right" aria-label="Left Align" href="{{ path('escaneo') }}">
+                        <span class="fa fa-eye" aria-hidden="true"></span>
 
-                            Ver Todo
-                        </a>
+                        Todo
+                    </a>
                     {% endif %}
+                    <a type="button" class="btn btn-primary btn-sm pull-right" aria-label="Left Align" href="{{ path('adm_escaneo_new') }}">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </a>
                 </th>
-                </thead>
-                <tbody>
-                    {% for entidad in entidades %}
-                       
-                        <tr>
-                            <td data-toggle="tooltip" title="{{entidad.descripcion}}">{{ entidad.id }}</td>
-                            <td>{{ entidad.fecha|date('d-m-Y') }}</td>
-                            <td>{{ entidad.tipo }}</td>
-                            <td>{{ entidad.plataforma }}</td>
-                            <td>
-                                {% set citicaActiva = 0 %}
-                                {% set citicaInactiva = 0 %}
-                                {% set citicaAsumida = 0 %}
-                                {% for vuln in entidad.vulnerabilidades %}
-                                    {% if (vuln.tipo.criticidad == 0 and vuln.estado == 1) %}
-                                        {% set citicaActiva = citicaActiva + 1 %}
-                                        
-                                    {% endif %}
-                                    {% if (vuln.tipo.criticidad == 0) and vuln.estado == 0 %}
-                                        {% set citicaInactiva = citicaInactiva + 1 %}
-                                    {% endif %}
-                                    {% if (vuln.tipo.criticidad == 0 and vuln.estado == 2) %}
-                                        {% set citicaAsumida = citicaAsumida + 1 %}
-                                    {% endif %}
-                                {% endfor %}
-                                {{ citicaActiva }} / {{citicaInactiva}} / {{citicaAsumida}}
-                            </td>
-                            <td>
-                                {% set altaActiva = 0 %}
-                                {% set altaInactiva = 0 %}
-                                {% set altaAsumida = 0 %}
-                                {% for vuln in entidad.vulnerabilidades %}
-                                    {% if (vuln.tipo.criticidad == 1 and vuln.estado == 1) %}
-                                        {% set altaActiva = altaActiva + 1 %}
-                                        
-                                    {% endif %}
-                                    {% if (vuln.tipo.criticidad == 1) and vuln.estado == 0 %}
-                                        {% set altaInactiva = altaInactiva + 1 %}
-                                    {% endif %}
-                                    {% if (vuln.tipo.criticidad == 1 and vuln.estado == 2) %}
-                                        {% set altaAsumida = altaAsumida + 1 %}
-                                    {% endif %}
-                                {% endfor %}
-                                {{ altaActiva }} / {{altaInactiva}} / {{altaAsumida}}
-                            </td>
-                            
-                            <td>
-                                {% set mediaActiva = 0 %}
-                                {% set mediaInactiva = 0 %}
-                                {% set mediaAsumida = 0 %}
-                                {% for vuln in entidad.vulnerabilidades %}
-                                    {% if (vuln.tipo.criticidad == 2 and vuln.estado == 1) %}
-                                        {% set mediaActiva = mediaActiva + 1 %}
-                                        
-                                    {% endif %}
-                                    {% if (vuln.tipo.criticidad == 2) and vuln.estado == 0 %}
-                                        {% set mediaInactiva = mediaInactiva + 1 %}
-                                    {% endif %}
-                                    {% if (vuln.tipo.criticidad == 2 and vuln.estado == 2) %}
-                                        {% set mediaAsumida = mediaAsumida + 1 %}
-                                    {% endif %}
-                                {% endfor %}
-                                {{ mediaActiva }} / {{mediaInactiva}} / {{mediaAsumida}}
-                            </td>
-                            <td class="text-center">
-                                <a type="button" class="btn btn-default" aria-label="Left Align" href="
-                                   {{ path('edit_escaneo', {'id':entidad.id}) }}">
-                                    <span class="fa fa-pencil" aria-hidden="true" ></span>
-                                </a>
-                                <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
-                                   {{ path('delete_escaneo', {'id':entidad.id}) }}" data-texto="¿Eliminar el Escaneo <span class='text-danger'>{{ entidad.id|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
-                                    <span class="fa fa-trash" aria-hidden="true"></span>
-                                </a>
-                                <a type="button" class="btn btn-default" aria-label="Left Align" href="
-                                   {{ path('view_escaneo', {'id':entidad.id}) }}">
-                                    <span class="fa fa-eye" aria-hidden="true" ></span>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <br>
-            <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('adm_escaneo_new') }}">
-                <span class="fa fa-plus" aria-hidden="true"></span> Nuevo Escaneo
+            </thead>
+            <tbody>
+                {% for entidad in entidades %}
+                
+                <tr>
+                    <td data-toggle="tooltip" title="{{entidad.descripcion}}">{{ entidad.id }}</td>
+                    <td>{{ entidad.fecha|date('d-m-Y') }}</td>
+                    <td>{{ entidad.tipo }}</td>
+                    <td>{{ entidad.plataforma }}</td>
+                    <td>
+                        {% set citicaActiva = 0 %}
+                        {% set citicaInactiva = 0 %}
+                        {% set citicaAsumida = 0 %}
+                        {% for vuln in entidad.vulnerabilidades %}
+                        {% if (vuln.tipo.criticidad == 0 and vuln.estado == 1) %}
+                        {% set citicaActiva = citicaActiva + 1 %}
+                        
+                        {% endif %}
+                        {% if (vuln.tipo.criticidad == 0) and vuln.estado == 0 %}
+                        {% set citicaInactiva = citicaInactiva + 1 %}
+                        {% endif %}
+                        {% if (vuln.tipo.criticidad == 0 and vuln.estado == 2) %}
+                        {% set citicaAsumida = citicaAsumida + 1 %}
+                        {% endif %}
+                        {% endfor %}
+                        {{ citicaActiva }} / {{citicaInactiva}} / {{citicaAsumida}}
+                    </td>
+                    <td>
+                        {% set altaActiva = 0 %}
+                        {% set altaInactiva = 0 %}
+                        {% set altaAsumida = 0 %}
+                        {% for vuln in entidad.vulnerabilidades %}
+                        {% if (vuln.tipo.criticidad == 1 and vuln.estado == 1) %}
+                        {% set altaActiva = altaActiva + 1 %}
+                        
+                        {% endif %}
+                        {% if (vuln.tipo.criticidad == 1) and vuln.estado == 0 %}
+                        {% set altaInactiva = altaInactiva + 1 %}
+                        {% endif %}
+                        {% if (vuln.tipo.criticidad == 1 and vuln.estado == 2) %}
+                        {% set altaAsumida = altaAsumida + 1 %}
+                        {% endif %}
+                        {% endfor %}
+                        {{ altaActiva }} / {{altaInactiva}} / {{altaAsumida}}
+                    </td>
+                    
+                    <td>
+                        {% set mediaActiva = 0 %}
+                        {% set mediaInactiva = 0 %}
+                        {% set mediaAsumida = 0 %}
+                        {% for vuln in entidad.vulnerabilidades %}
+                        {% if (vuln.tipo.criticidad == 2 and vuln.estado == 1) %}
+                        {% set mediaActiva = mediaActiva + 1 %}
+                        
+                        {% endif %}
+                        {% if (vuln.tipo.criticidad == 2) and vuln.estado == 0 %}
+                        {% set mediaInactiva = mediaInactiva + 1 %}
+                        {% endif %}
+                        {% if (vuln.tipo.criticidad == 2 and vuln.estado == 2) %}
+                        {% set mediaAsumida = mediaAsumida + 1 %}
+                        {% endif %}
+                        {% endfor %}
+                        {{ mediaActiva }} / {{mediaInactiva}} / {{mediaAsumida}}
+                    </td>
+                    <td class="text-center">
+                        <a type="button" class="btn btn-default" aria-label="Left Align" href="
+                        {{ path('edit_escaneo', {'id':entidad.id}) }}">
+                        <span class="fa fa-pencil" aria-hidden="true" ></span>
+                    </a>
+                    <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
+                    {{ path('delete_escaneo', {'id':entidad.id}) }}" data-texto="¿Eliminar el Escaneo <span class='text-danger'>{{ entidad.id|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
+                    <span class="fa fa-trash" aria-hidden="true"></span>
+                </a>
+                <a type="button" class="btn btn-default" aria-label="Left Align" href="
+                {{ path('view_escaneo', {'id':entidad.id}) }}">
+                <span class="fa fa-eye" aria-hidden="true" ></span>
             </a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+<br>
 
 
 
-            {% if estado is not defined %} 
-                <a type="button" class="btn btn-primary" aria-label="Left Align" href="{{ path('export') }}">
 
-            {% else %}
-                <a type="button" class="btn btn-primary" aria-label="Left Align" href="{{ path('export', {'estado':1}) }}">
+{% if estado is not defined %} 
+<a type="button" class="btn btn-primary" aria-label="Left Align" href="{{ path('export') }}">
 
-            {% endif %}
-                <span class="fa fa-file-excel-o" aria-hidden="true"></span>
+    {% else %}
+    <a type="button" class="btn btn-primary" aria-label="Left Align" href="{{ path('export', {'estado':1}) }}">
 
-                Export
-            </a>
+        {% endif %}
+        <span class="fa fa-file-excel-o" aria-hidden="true"></span>
 
-            * ACTIVAS / REMEDIADAS / ASUMIDAS
-        </div>
-    </div>
+        Export
+    </a>
+
+    * ACTIVAS / REMEDIADAS / ASUMIDAS
+</div>
+</div>
 
 {% endblock %}

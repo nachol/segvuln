@@ -4,47 +4,48 @@
 
 {% block body %}
 <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Plataformas</a>
-        </li>
-        <li class="breadcrumb-item active">Índice de Plataformas</li>
-      </ol>
+    <li class="breadcrumb-item">
+      <a href="#">Plataformas</a>
+  </li>
+  <li class="breadcrumb-item active">Índice de Plataformas</li>
+</ol>
 
 <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <table class="table table-hover" id="myTable">
-                <thead>
+    <div class="col-md-12 col-md-offset-1">
+        <table class="table table-hover" id="myTable">
+            <thead>
                 <th class="col-md-2">Nombre</th>
                 <th class="col-md-3">Ubicación</th>
                 <th class="col-md-3">Responsable</th>
                 <th class="col-md-2 text-center">
+                    <a type="button" class="btn btn-primary btn-sm pull-right" aria-label="Left Align" href="{{ path('new_plataforma') }}">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </a>
                 </th>
-                </thead>
-                <tbody>
-                    {% for entidad in entidades %}
-                        <tr>
-                            <td>{{ entidad.descripcion }}</td>
-                            <td>{{ entidad.ubicacion }}</td>
-                            <td>{{ entidad.responsable.apellido }}, {{ entidad.responsable.nombre }}</td>
-                            <td class="text-center">
-                                <a type="button" class="btn btn-default" aria-label="Left Align" href="
-                                   {{ path('edit_plataforma', {'id':entidad.id}) }}">
-                                    <span class="fa fa-pencil" aria-hidden="true" ></span>
-                                </a>
-                                <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
-                                   {{ path('delete_plafaforma', {'id':entidad.id}) }}" data-texto="¿Eliminar la Plataforma <span class='text-danger'>{{ entidad.descripcion|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
-                                    <span class="fa fa-trash" aria-hidden="true"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <br>
-            <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('new_plataforma') }}">
-                <span class="fa fa-plus" aria-hidden="true"></span> Nueva Plataforma
-            </a>
-        </div>
-    </div>
+            </thead>
+            <tbody>
+                {% for entidad in entidades %}
+                <tr>
+                    <td>{{ entidad.descripcion }}</td>
+                    <td>{{ entidad.ubicacion }}</td>
+                    <td>{{ entidad.responsable.apellido }}, {{ entidad.responsable.nombre }}</td>
+                    <td class="text-center">
+                        <a type="button" class="btn btn-default" aria-label="Left Align" href="
+                        {{ path('edit_plataforma', {'id':entidad.id}) }}">
+                        <span class="fa fa-pencil" aria-hidden="true" ></span>
+                    </a>
+                    <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
+                    {{ path('delete_plafaforma', {'id':entidad.id}) }}" data-texto="¿Eliminar la Plataforma <span class='text-danger'>{{ entidad.descripcion|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
+                    <span class="fa fa-trash" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+
+</div>
+</div>
 
 {% endblock %}

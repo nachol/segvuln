@@ -4,45 +4,46 @@
 
 {% block body %}
 <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Tipos de Escaneo</a>
-        </li>
-        <li class="breadcrumb-item active">Índice de Tipos de Escaneo</li>
-      </ol>
+    <li class="breadcrumb-item">
+      <a href="#">Tipos de Escaneo</a>
+  </li>
+  <li class="breadcrumb-item active">Índice de Tipos de Escaneo</li>
+</ol>
 
 <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <table class="table table-hover" id="myTable">
-                <thead>
+    <div class="col-md-12 col-md-offset-1">
+        <table class="table table-hover" id="myTable">
+            <thead>
                 <th class="col-md-2">Id</th>
                 <th class="col-md-3">Descripción</th>
                 <th class="col-md-2 text-center">
-                </th>
-                </thead>
-                <tbody>
-                    {% for entidad in entidades %}
-                        <tr>
-                            <td>{{ entidad.id }}</td>
-                            <td>{{ entidad.descripcion }}</td>
-                            <td class="text-center">
-                                <a type="button" class="btn btn-default" aria-label="Left Align" href="
-                                   {{ path('edit_tipo_escaneo', {'id':entidad.id}) }}">
-                                    <span class="fa fa-pencil" aria-hidden="true" ></span>
-                                </a>
-                                <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
-                                   {{ path('delete_tipo_escaneo', {'id':entidad.id}) }}" data-texto="¿Eliminar el Tipo de Escaneo <span class='text-danger'>{{ entidad.descripcion|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
-                                    <span class="fa fa-trash" aria-hidden="true"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <br>
-            <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('new_tipo_escaneo') }}">
-                <span class="fa fa-plus" aria-hidden="true"></span> Nuevo Tipo de Escaneo
+                   <a type="button" class="btn btn-primary btn-sm pull-right" aria-label="Left Align" href="{{ path('new_tipo_escaneo') }}">
+                    <span class="fa fa-plus" aria-hidden="true"></span>
+                </a>
+            </th>
+        </thead>
+        <tbody>
+            {% for entidad in entidades %}
+            <tr>
+                <td>{{ entidad.id }}</td>
+                <td>{{ entidad.descripcion }}</td>
+                <td class="text-center">
+                    <a type="button" class="btn btn-default" aria-label="Left Align" href="
+                    {{ path('edit_tipo_escaneo', {'id':entidad.id}) }}">
+                    <span class="fa fa-pencil" aria-hidden="true" ></span>
+                </a>
+                <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
+                {{ path('delete_tipo_escaneo', {'id':entidad.id}) }}" data-texto="¿Eliminar el Tipo de Escaneo <span class='text-danger'>{{ entidad.descripcion|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
+                <span class="fa fa-trash" aria-hidden="true"></span>
             </a>
-        </div>
-    </div>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+<br>
+
+</div>
+</div>
 
 {% endblock %}

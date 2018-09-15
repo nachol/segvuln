@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Info de Notificacion{% endblock %}
+
+    {% block body %}
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Notificacion</a>
+          </li>
+          <li class="breadcrumb-item active">Info de Notificacion</li>
+      </ol>
+      <div class="row">
+        <div class="col-md-6">
+          <h1>ID: {{entidad.id}} - {{entidad.nombre}}</h1>
+          <p><b>Tipo:</b> {{entidad.getStringTipo}}</p>
+          <p><b>Riesgo:</b> {{entidad.getStringRiesgo}}</p>
+          <p><b>Deteccion:</b> {{ entidad.deteccion|date('d-m-Y')}}</p>
+          <p><b>Notificacion:</b> 
+            {% if entidad.notificacion is not null %}
+                {{ entidad.notificacion|date('d-m-Y')}}
+            {% endif %}
+          </p>
+          <p><b>Cierre:</b>
+            {% if entidad.cierre is not null %} 
+              {{ entidad.cierre|date('d-m-Y')}}
+            {% endif %}
+          </p>
+          {% if entidad.cierre is not null %} 
+            <p><b>Dias:</b> {{ entidad.getDias}}</p>
+          {% endif %}
+          <p><b>Estado:</b> {{ entidad.getStringEstado}}</p>
+          <p><b>Observaciones:</b> {{ entidad.observaciones}}</p>
+          <p><b>Referente:</b> {{ entidad.referente}}</p>
+
+
+
+      </div>
+    </div>
+</div>
+<a class="btn btn-default" href="javascript:history.back()" role="button">Volver</a>
+{% endblock %}

@@ -4,51 +4,52 @@
 
 {% block body %}
 <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Tipos de Vulnerabilidades</a>
-        </li>
-        <li class="breadcrumb-item active">Índice de Tipos de Vulnerabilidades</li>
-      </ol>
+    <li class="breadcrumb-item">
+      <a href="#">Tipos de Vulnerabilidades</a>
+  </li>
+  <li class="breadcrumb-item active">Índice de Tipos de Vulnerabilidades</li>
+</ol>
 
 <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <table class="table table-hover" id="myTable">
-                <thead>
+    <div class="col-md-12 col-md-offset-1">
+        <table class="table table-hover" id="myTable">
+            <thead>
                 <th class="col-md-2">Id</th>
                 <th class="col-md-3">Descripción</th>
                 <th class="col-md-3">Criticidad</th>
                 <th class="col-md-2 text-center">
-                </th>
-                </thead>
-                <tbody>
-                    {% for entidad in entidades %}
-                        <tr>
-                            <td>{{ entidad.id }}</td>
-                            <td>{{ entidad.descripcion }}</td>
-                            <td>{{ entidad.getStringCriticidad }}</td>
-                            <td class="text-center">
-                                <a type="button" class="btn btn-default" aria-label="Left Align" href="
-                                   {{ path('edit_tipo_vuln', {'id':entidad.id}) }}">
-                                    <span class="fa fa-pencil" aria-hidden="true" ></span>
-                                </a>
-                                <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
-                                   {{ path('delete_tipo_vuln', {'id':entidad.id}) }}" data-texto="¿Eliminar el tipo de vulnerabilidad <span class='text-danger'>{{ entidad.id|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
-                                    <span class="fa fa-trash" aria-hidden="true"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <br>
-            <a type="button" class="btn btn-primary pull-right" aria-label="Left Align" href="{{ path('new_tipo_vuln') }}">
-                <span class="fa fa-plus" aria-hidden="true"></span> Nuevo Tipo de Vulnerabilidad
+                   <a type="button" class="btn btn-primary btn-sm pull-right" aria-label="Left Align" href="{{ path('new_tipo_vuln') }}">
+                    <span class="fa fa-plus" aria-hidden="true"></span>
+                </a>
+            </th>
+        </thead>
+        <tbody>
+            {% for entidad in entidades %}
+            <tr>
+                <td>{{ entidad.id }}</td>
+                <td>{{ entidad.descripcion }}</td>
+                <td>{{ entidad.getStringCriticidad }}</td>
+                <td class="text-center">
+                    <a type="button" class="btn btn-default" aria-label="Left Align" href="
+                    {{ path('edit_tipo_vuln', {'id':entidad.id}) }}">
+                    <span class="fa fa-pencil" aria-hidden="true" ></span>
+                </a>
+                <a class="btn btn-default" aria-label="Left Align" href="#" data-href="
+                {{ path('delete_tipo_vuln', {'id':entidad.id}) }}" data-texto="¿Eliminar el tipo de vulnerabilidad <span class='text-danger'>{{ entidad.id|striptags }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
+                <span class="fa fa-trash" aria-hidden="true"></span>
             </a>
-            <form action="{{ path('import_tipo_vuln') }}" method="post" enctype="multipart/form-data">
-                <input type="file" name="fileToUpload" id="fileToUpload" required>
-                <button class="btn btn-primary" type="submit"><span class="fa fa-plus" aria-hidden="true"></span> Importar Vulnerabilidades</button>
-            </form>
-        </div>
-    </div>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+<br>
+
+<form action="{{ path('import_tipo_vuln') }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="fileToUpload" id="fileToUpload" required>
+    <button class="btn btn-primary btn-sm" type="submit"><span class="fa fa-plus" aria-hidden="true"></span> Importar Vulnerabilidades</button>
+</form>
+</div>
+</div>
 
 {% endblock %}

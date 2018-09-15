@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Índice de Notificaciones{% endblock %}
+
+{% block body %}
+<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+		  <a href="#">Notificaciones</a>
+		</li>
+		<li class="breadcrumb-item active">Índice de Notificaciones</li>
+	  </ol>
+
+<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover" id="myTable">
+				<thead>
+				<th class="col-md-2">Nombre</th>
+				<th class="col-md-2">Tipo</th>
+				<th class="col-md-1">Riesgo</th>
+				<th class="col-md-1">Deteccion</th>
+				<th class="col-md-1">Notificacion</th>
+				<th class="col-md-1">Cierre</th>
+				<th class="col-md-1">Dias</th>
+				<th class="col-md-1">Estado</th>
+				<th class="col-md-1">Referente</th>
+				<th class="col-md-2 text-center">
+					<a type="button" class="btn btn-sm btn-primary btn-sm pull-right" aria-label="Left Align" href="{{ path('new_notification') }}">
+				<span class="fa fa-plus" aria-hidden="true"></span> 
+			</a>
+				</th>
+				</thead>
+				<tbody>
+					{% for entidad in entidades %}
+						<tr>
+							<td>{{ entidad.nombre }}</td>
+							<td>{{ entidad.getStringRiesgo }}</td>
+							<td>{{ entidad.deteccion|date('d-m-Y')}}</td>
+							<td>
+								{% if entidad.notificacion is not null %}
+									{{ entidad.notificacion|date('d-m-Y')}}
+								{% endif %}
+							</td>
+							<td>
+								{% if entidad.cierre is not null %}
+
+									{{ entidad.cierre|date('d-m-Y')}}
+								{% endif %}
+
+							</td>
+							<td>
+									{{ entidad.getDias }}
+							</td>
+
+							<td>{{ entidad.getStringEstado }}</td>
+							<td>{{ entidad.referente }}</td>
+							<td class="text-center">
+								<a type="button" class="btn btn-default" aria-label="Left Align" href="
+								   {{ path('edit_notification', {'id':entidad.id}) }}">
+									<span class="fa fa-pencil" aria-hidden="true" ></span>
+								</a>
+								<a class="btn btn-default" aria-label="Left Align" href="#" data-href="
+								   {{ path('delete_notification', {'id':entidad.id}) }}" data-texto="¿Eliminar la Notificacion <span class='text-danger'>{{ entidad.id }}</span>?" data-toggle="modal" data-target="#popup_confirmar">
+									<span class="fa fa-trash" aria-hidden="true"></span>
+								</a>
+								<a type="button" class="btn btn-default" aria-label="Left Align" href="
+								   {{ path('view_notification', {'id':entidad.id}) }}">
+									<span class="fa fa-eye" aria-hidden="true" ></span>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br>
+		</div>
+	</div>
+
+{% endblock %}

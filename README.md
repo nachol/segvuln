@@ -5,58 +5,65 @@ Herramienta para seguimiento de vulnerabilidades desarrollada en Synfony 4.
 
 #Dependencias
 
-	sudo apt install php php-sqlite3 php-xml php-ldap
+```sudo apt install php php-sqlite3 php-xml php-ldap```
 	
 #Instalación:
 
 1. Clonar el respositorio:
 
-	```
-	$ git clone https://github.com/nachol/segvuln.git
-	```
+```
+$ git clone https://github.com/nachol/segvuln.git
+```
 
-2. Crear archivo del entorno ```.env```:
+2. Modificar archivo del entorno ```.env```:
 
 Ejemplo:
 
-	    # This file is a "template" of which env vars need to be defined for your application
-	    # Copy this file to .env file for development, create environment variables when deploying to production
-	    # https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
-	    ###> symfony/framework-bundle ###
-	    APP_ENV=dev
-	    APP_DEBUG=1
-	    APP_SECRET=ChangeMe
-	    #TRUSTED_PROXIES=127.0.0.1,127.0.0.2
-	    #TRUSTED_HOSTS=localhost,example.com
-	    ###< symfony/framework-bundle ###
-	    ###> doctrine/doctrine-bundle ###
-	    # Format described at http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
-	    # For an SQLite database, use: "sqlite:///%kernel.project_dir%/var/data.db"
-	    # Configure your db driver and server_version in config/packages/doctrine.yaml
-	    #DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
-	    ###< doctrine/doctrine-bundle ###
-	    #SQLite
-	    DATABASE_URL="sqlite:///%kernel.project_dir%/var/app.db"
-
+```
+# This file is a "template" of which env vars need to be defined for your application
+# Copy this file to .env file for development, create environment variables when deploying to production
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+###> symfony/framework-bundle ###
+APP_ENV=dev
+APP_DEBUG=1
+APP_SECRET=ChangeMe
+#TRUSTED_PROXIES=127.0.0.1,127.0.0.2
+#TRUSTED_HOSTS=localhost,example.com
+###< symfony/framework-bundle ###
+###> doctrine/doctrine-bundle ###
+# Format described at http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
+# For an SQLite database, use: "sqlite:///%kernel.project_dir%/var/data.db"
+# Configure your db driver and server_version in config/packages/doctrine.yaml
+#DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+###< doctrine/doctrine-bundle ###
+#SQLite
+DATABASE_URL="sqlite:///%kernel.project_dir%/var/app.db"
+```
 
 3. Instalar Vendors con composer (incluido en el repositorio):
 
-	```
-	$ composer install
-	```
+```
+$ composer install
+```
+
+If vuln notifications it is recommended to update
+
+```
+$ composer update  
+```
 
 4. Crear base de datos y esquema:
 
-	
-	    $ php bin/console doctrine:database:create
-	    $ php bin/console doctrine:schema:create
-	
+```	
+$ php bin/console doctrine:database:create
+$ php bin/console doctrine:schema:create
+```	
 
 5. Crear vulnerabilidades o Importarlas de Serpico (https://github.com/SerpicoProject/Serpico)
 	
 	1. Creacion Manual
 
-		Componentes --> Tipos de Vulnerabilidad --> Nuevo tipo de Vulnerabilidad
+	Componentes --> Tipos de Vulnerabilidad --> Nuevo tipo de Vulnerabilidad
 
 	2. Importación de Serpico
 		Componentes --> Tipos de Vulnerabilidad --> Choose File --> Importar Vulnerabilidades

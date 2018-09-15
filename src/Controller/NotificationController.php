@@ -2,64 +2,65 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use App\Entity\Cyberthreats;
-use Symfony\Component\HttpFoundation\Request;
-use App\Form\CyberthreatsType;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Notification;
+use App\Form\NotificationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+
 
 /**
- * @Route("/cyberthreats")
+ * @Route("/notificaciones")
  */
-class CyberthreatsController extends Controller
+class NotificationController extends Controller
 {
     /**
-     * @Route("/", name="cyberthreats")
+     * @Route("/", name="notification")
      */
     public function index()
     {
         return ($this->render(
-            'cyberthreats/index.html.twig', [
-                'entidades' => $this->getDoctrine()->getManager()->getRepository(Cyberthreats::class)->findAll()
+            'notification/index.html.twig', [
+                'entidades' => $this->getDoctrine()->getManager()->getRepository(Notification::class)->findAll()
                 ]
             ));
     }
 
-     /**
-     * @Route("/new", name="new_cyberthreat")
+    /**
+     * @Route("/new", name="new_notification")
      * @Method("GET")
      */
     public function new()
     {
-		$cyberthreats = new Cyberthreats();
+		$notifications = new Notification();
         
         $formulario = $this->createForm(
-            CyberthreatsType::class, $cyberthreats, [
-            'action' => $this->generateUrl('create_cyberthreat'),
+            NotificationType::class, $notifications, [
+            'action' => $this->generateUrl('create_notification'),
             'method' => "POST",
             ]
         );
 
         return $this->render(
-                'cyberthreats/new.html.twig', [
-                'entidad' => $cyberthreats,
+                'notification/new.html.twig', [
+                'entidad' => $notifications,
                 'formulario' => $formulario->createView(),
                 ]
         );  
     }
 
-
     /**
-     * @Route("/create", name="create_cyberthreat")
+     * @Route("/create", name="create_notification")
      * @Method("POST")
      */
     public function create(Request $request)
     {
-    	$cyberthreats = new Cyberthreats();
+    	$notifications = new Notification();
 
-        $form = $this->createForm(CyberthreatsType::class, $cyberthreats);
+        $form = $this->createForm(NotificationType::class, $notifications);
 
         $form->handleRequest($request);
 
@@ -67,7 +68,7 @@ class CyberthreatsController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             try{
-                $em->persist($cyberthreats);
+                $em->persist($notifications);
                 $em->flush();
                 $this->addFlash(
                     'notice',
@@ -81,7 +82,7 @@ class CyberthreatsController extends Controller
             }
             
             
-            return $this->redirectToRoute('cyberthreats');
+            return $this->redirectToRoute('notification');
  
         }
 
@@ -90,31 +91,31 @@ class CyberthreatsController extends Controller
                 'Hubo un error intentando crear el registro!'
             );
         return $this->render(
-                'cyberthreats/new.html.twig', [
+                'notification/new.html.twig', [
                 'formulario' => $form->createView()
                 ]
         );
     }
 
     /**
-     * @Route("/edit/{id}", name="edit_cyberthreat")
+     * @Route("/edit/{id}", name="edit_notification")
      * @Method("GET")
      */
     public function edit($id)
     {
-        $cyberthreat = $this->getDoctrine()->getManager()->getRepository(Cyberthreats::class)->find($id);
+        $notification = $this->getDoctrine()->getManager()->getRepository(Notification::class)->find($id);
 
-        if (!$cyberthreat) {
+        if (!$notification) {
             throw $this->createNotFoundException('No se ha encontrado el registro.');
         }
 
-        $form = $this->createForm(CyberthreatsType::class, $cyberthreat, [
-            'action' => $this->generateUrl('update_cyberthreat', ['id' => $id]),
+        $form = $this->createForm(NotificationType::class, $notification, [
+            'action' => $this->generateUrl('update_notification', ['id' => $id]),
             'method' => "PUT"
         ]);
 
         return $this->render(
-                'cyberthreats/new.html.twig', [
+                'notification/new.html.twig', [
                 'formulario' => $form->createView()
                 ]
         );    
@@ -122,18 +123,18 @@ class CyberthreatsController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="update_cyberthreat")
+     * @Route("/{id}", name="update_notification")
      * @Method("PUT")
      */
     public function update(Request $request, $id)
     {
-    	$cyberthreat = $this->getDoctrine()->getManager()->getRepository(Cyberthreats::class)->find($id);
+    	$notification = $this->getDoctrine()->getManager()->getRepository(Notification::class)->find($id);
 
-    	if (!$cyberthreat) {
+    	if (!$notification) {
             throw $this->createNotFoundException('No se ha encontrado el registro.');
         }
 
-        $form = $this->createForm(CyberthreatsType::class, $cyberthreat, ['method' => "PUT"]);
+        $form = $this->createForm(NotificationType::class, $notification, ['method' => "PUT"]);
 
         $form->handleRequest($request);
 
@@ -141,20 +142,20 @@ class CyberthreatsController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
         	$em = $this->getDoctrine()->getManager();
         	try{
-        		$em->persist($cyberthreat);
+        		$em->persist($notification);
                 $em->flush();
 
                 $this->addFlash(
                     'notice',
-                    'Amenaza editada exitosamente!'
+                    'Registro editado exitosamente!'
                 );
-                return $this->redirectToRoute('cyberthreats');
+                return $this->redirectToRoute('notification');
         	}catch (\Exception $ex) {
                 $this->addFlash(
                     'error',
                     'Error al tratar de editar el registro!'
                 );
-                return $this->redirectToRoute('cyberthreats');
+                return $this->redirectToRoute('notification');
             }
         }
 
@@ -163,7 +164,7 @@ class CyberthreatsController extends Controller
                 'Hubo un error intentando guardar el registro!'
             );
         return $this->render(
-                'cyberthreats/new.html.twig', [
+                'notification/new.html.twig', [
                 'formulario' => $form->createView()
                 ]
         );
@@ -171,51 +172,51 @@ class CyberthreatsController extends Controller
     }
 
     /**
-     * @Route("/delete/{id}", name="delete_cyberthreat")
+     * @Route("/delete/{id}", name="delete_notification")
      * @Method("GET")
      */
     public function delete($id)
     {
-        $cyberthreat = $this->getDoctrine()->getManager()->getRepository(Cyberthreats::class)->find($id);
+        $notification = $this->getDoctrine()->getManager()->getRepository(Notification::class)->find($id);
         
-        if (!$cyberthreat) {
+        if (!$notification) {
             throw $this->createNotFoundException('No se ha encontrado el registro.');
         }
         
         $em = $this->getDoctrine()->getManager();
         try {
-            $em->remove($cyberthreat);
+            $em->remove($notification);
             $em->flush();
             $this->addFlash(
                     'notice',
                     'Registro borrado exitosamente!'
                 );
-            return $this->redirectToRoute('cyberthreats'); 
+            return $this->redirectToRoute('notification'); 
         } catch (\Exception $ex) {
             $this->addFlash(
                     'error',
                     'Error al intentar borrar el registro!'
                 );
-            return $this->redirectToRoute('cyberthreats'); 
+            return $this->redirectToRoute('notification'); 
         }
         
     }
 
     /**
-     * @Route("/view/{id}", name="view_cyberthreat")
+     * @Route("/view/{id}", name="view_notification")
      * @Method("GET")
      */
     public function view($id)
     {
-        $cyberthreat = $this->getDoctrine()->getManager()->getRepository(Cyberthreats::class)->find($id);
+        $notification = $this->getDoctrine()->getManager()->getRepository(Notification::class)->find($id);
 
-        if (!$cyberthreat) {
+        if (!$notification) {
             throw $this->createNotFoundException('No se ha encontrado el registro seleccionado.');
         }
 
         return $this->render(
-                'cyberthreats/view.html.twig', [
-                'entidad' => $cyberthreat
+                'notification/view.html.twig', [
+                'entidad' => $notification
                 ]
         );
         

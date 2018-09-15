@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% form_theme formulario 'bootstrap/bootstrap_3_layout.html.twig' %}
+
+{% block title %}Crear/Editar Notificacion{% endblock %}
+
+    {% block body %}
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Notificacion</a>
+          </li>
+          <li class="breadcrumb-item active">Crear/Editar Notificacion</li>
+      </ol>
+
+      {{ form_start(formulario)}}
+
+        <div class="col-md-6">
+          {{ form_widget(formulario) }}
+
+
+      </div>
+    
+</div>
+<a class="btn btn-default" href="{{ path('notification') }}" role="button">Cancelar</a>
+<button class="btn btn-primary" type="submit">Confirmar</button>
+{{ form_end(formulario) }}
+
+{% endblock %}
