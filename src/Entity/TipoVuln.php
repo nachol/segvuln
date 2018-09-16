@@ -54,6 +54,11 @@ class TipoVuln
      */
     private $idSerpico;
 
+    /**
+     * @ORM\Column(type="string", nullable=true, options={"default":null})
+     */
+    private $idNessus;
+
 
     public function __construct()
     {
@@ -224,5 +229,26 @@ class TipoVuln
     {
         
         return $this->descripcion;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getIdNessus()
+    {
+        return $this->idNessus;
+    }
+
+    /**
+     * @param mixed $criticidad
+     *
+     * @return self
+     */
+    public function setIdNessus($id)
+    {
+        $this->idNessus = $id;
+
+        return $this;
     }
 }

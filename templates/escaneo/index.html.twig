@@ -3,6 +3,31 @@
 {% block title %}Índice de Escaneos{% endblock %}
 
 {% block body %}
+<div class="modal fade" role="dialog" tabindex="-1" id="popup_importar">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      {{ form_start(formulario) }}
+
+          <div class="modal-body">
+
+            <h2>Importar Escaneo</h2>
+            <hr>
+            {{ form_row(formulario.plataforma, {'label':'Plataforma: ' }) }}
+            {{ form_row(formulario.attachment, {'label':'Adjunto: ' }) }}
+            {{ form_row(formulario.herramienta, {'label':'Herramienta: ' }) }}
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Aceptar</button>                        
+      </div>
+    {{ form_end(formulario) }}
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
+
+
+
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <a href="#">Escaneos</a>
@@ -121,8 +146,8 @@
     {% endfor %}
 </tbody>
 </table>
+* ACTIVAS / REMEDIADAS / ASUMIDAS
 <br>
-
 
 
 
@@ -137,8 +162,13 @@
 
         Export
     </a>
+    <a type="button" class="btn btn-primary" aria-label="Left Align" href="#" data-href="{{ path('import') }}" data-texto="" data-toggle="modal" data-target="#popup_importar">
+        <span class="fa fa-upload" aria-hidden="true"></span>
 
-    * ACTIVAS / REMEDIADAS / ASUMIDAS
+        Import
+    </a>
+    <br>
+
 </div>
 </div>
 

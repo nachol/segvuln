@@ -13,16 +13,16 @@ class TipoVulnRepository extends ServiceEntityRepository
         parent::__construct($registry, TipoVuln::class);
     }
 
-    /*
-    public function findBySomething($value)
+    
+    public function findByNessusID($value)
     {
         return $this->createQueryBuilder('t')
-            ->where('t.something = :value')->setParameter('value', $value)
+            ->where('t.idNessus = :value')->setParameter('value', $value)
             ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults(1)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 }

@@ -57,6 +57,11 @@ class Vulnerabilidad
      */
     private $comentario;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $ip;
+
     private $cantidad;
 
     /**
@@ -164,6 +169,26 @@ class Vulnerabilidad
     public function setComentario($comentario)
     {
         $this->comentario = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param mixed $fechaModificacion
+     *
+     * @return self
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
 
         return $this;
     }

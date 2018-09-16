@@ -25,6 +25,7 @@
                 <thead>
                 <th class="col-md-3">Fecha</th>
                 <th class="col-md-3">Modificacion</th>
+                <th class="col-md-3">Host</th>
                 <th class="col-md-3">Estado</th>
                 <th class="col-md-3">Vulnerabilidad</th>
                 <th class="col-md-3">Criticidad</th>
@@ -35,6 +36,7 @@
                         <tr>
                             <td>{{ vuln.fechaCreacion|date('d-m-Y') }}</td>
                             <td>{{ vuln.fechaCreacion|date('d-m-Y') }}</td>
+                            <td>{{ vuln.ip}}</td>
                             <td>{{ vuln.getStringEstado}}</td>
                             <td><a href="{{ path('view_tipo_vuln', {'id' : vuln.id})}}">{{ vuln.tipo.descripcion}}</a></td>
                             <td>{{ vuln.tipo.getStringCriticidad}}</td>

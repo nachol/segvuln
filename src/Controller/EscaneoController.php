@@ -9,10 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use App\Entity\Escaneo;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\EscaneoType;
+use App\Form\EscaneoUploadType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
@@ -21,7 +23,6 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
  */
 class EscaneoController extends Controller
 {
-
     /**
      * Lista de Escaneos
      * 
@@ -30,12 +31,19 @@ class EscaneoController extends Controller
      */
     public function index($estado = null)
     {
+        $formulario = $this->createForm(
+            EscaneoUploadType::class, null ,[
+                'action' => $this->generateUrl('import'),
+                'method' => "POST",
+            ]
+        );
 
         if($estado == null)
         {
             return ($this->render(
-            'escaneo/index.html.twig', [
-                'entidades' => $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->findAll()
+                'escaneo/index.html.twig', [
+                    'entidades' => $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->findAll(),
+                    'formulario' => $formulario->createView()
                 ]
             ));
         }
@@ -43,9 +51,11 @@ class EscaneoController extends Controller
         return ($this->render(
             'escaneo/index.html.twig', [
                 'entidades' => $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->findByEstadoVulnerabilidad($estado),
-                'estado' => 1
-                ]
-            ));
+                'estado' => 1,
+                'formulario' => $formulario->createView()
+
+            ]
+        ));
     }
 
     /**
@@ -61,16 +71,16 @@ class EscaneoController extends Controller
         
         $formulario = $this->createForm(
             EscaneoType::class, $escaneo, [
-            'action' => $this->generateUrl('adm_escaneo_create'),
-            'method' => "POST",
+                'action' => $this->generateUrl('adm_escaneo_create'),
+                'method' => "POST",
             ]
         );
 
         return $this->render(
-                'escaneo/new.html.twig', [
+            'escaneo/new.html.twig', [
                 'entidad' => $escaneo,
                 'formulario' => $formulario->createView(),
-                ]
+            ]
         );  
         
     }
@@ -124,16 +134,16 @@ class EscaneoController extends Controller
             
             
             return $this->redirectToRoute('escaneo');
- 
+
         }
         $this->addFlash(
-                'error',
-                'Hubo un error intentando crear El escaneo!'
-            );
+            'error',
+            'Hubo un error intentando crear El escaneo!'
+        );
         return $this->render(
-                'escaneo/new.html.twig', [
+            'escaneo/new.html.twig', [
                 'formulario' => $form->createView()
-                ]
+            ]
         );
     }
 
@@ -155,9 +165,9 @@ class EscaneoController extends Controller
         ]);
 
         return $this->render(
-                'escaneo/new.html.twig', [
+            'escaneo/new.html.twig', [
                 'formulario' => $form->createView()
-                ]
+            ]
         );    
         
     }
@@ -217,13 +227,13 @@ class EscaneoController extends Controller
         }
 
         $this->addFlash(
-                'error',
-                'Hubo un error intentando guardar el Escaneo!'
-            );
+            'error',
+            'Hubo un error intentando guardar el Escaneo!'
+        );
         return $this->render(
-                'escaneo/edit.html.twig', [
+            'escaneo/edit.html.twig', [
                 'formulario' => $form->createView()
-                ]
+            ]
         );
 
     }
@@ -245,15 +255,15 @@ class EscaneoController extends Controller
             $em->remove($escaneo);
             $em->flush();
             $this->addFlash(
-                    'notice',
-                    'Escaneo borrado exitosamente!'
-                );
+                'notice',
+                'Escaneo borrado exitosamente!'
+            );
             return $this->redirectToRoute('escaneo'); 
         } catch (\Exception $ex) {
             $this->addFlash(
-                    'error',
-                    'Error al intentar Borrar el escaneo!'
-                );
+                'error',
+                'Error al intentar Borrar el escaneo!'
+            );
             return $this->redirectToRoute('escaneo'); 
         }
         
@@ -272,9 +282,9 @@ class EscaneoController extends Controller
         }
 
         return $this->render(
-                'escaneo/view.html.twig', [
+            'escaneo/view.html.twig', [
                 'entidad' => $escaneo
-                ]
+            ]
         );
         
     }
@@ -286,7 +296,7 @@ class EscaneoController extends Controller
      * @Method("GET")
      */
     public function csvExport($estado = null){
-        
+
         if(!$estado){
             $escaneos = $this->getDoctrine()->getManager()->getRepository(Escaneo::class)->findAll();
 
@@ -341,5 +351,7 @@ class EscaneoController extends Controller
 
         return $this->file($file.'.csv');
     }
+
+
 
 }
