@@ -55,7 +55,7 @@ class TipoVuln
     private $idSerpico;
 
     /**
-     * @ORM\Column(type="string", nullable=true, options={"default":null})
+     * @ORM\Column(type="integer", nullable=true, options={"default":null})
      */
     private $idNessus;
 

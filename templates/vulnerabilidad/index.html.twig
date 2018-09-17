@@ -15,7 +15,7 @@
             <table class="table table-hover" id="myTable">
                 <thead>
                 <th class="col-md-2">Plataforma</th>
-                <th class="col-md-2">Host</th>
+                <th class="col-md-2">Host : Puerto</th>
                 <th class="col-md-3">Fecha</th>
                 <th class="col-md-3">Modificacion</th>
                 <th class="col-md-3">Vulnerabilidad</th>
@@ -28,7 +28,7 @@
                     {% for entidad in entidades %}
                         <tr>
                             <td><a href="{{ path('view_escaneo', {'id':entidad.escaneo.id}) }}">{{ entidad.escaneo.plataforma }}</a></td>
-                            <td>{{ entidad.ip }}</td>
+                            <td>{{ entidad.ip }} : {{ entidad.port }}</td>
                             <td>{{ entidad.fechaCreacion|date('d-m-Y') }}</td>
                             <td>{{ entidad.fechaCreacion|date('d-m-Y') }}</td>
                             <td><a href="{{ path('view_tipo_vuln', {'id' : entidad.tipo.id})}}">{{ entidad.tipo.descripcion}}</a></td>

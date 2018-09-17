@@ -23,7 +23,14 @@ class VulnerabilidadType extends AbstractType
     {
         $builder
             ->add('ip', TextType::class, array(
-                'label' => 'Host'
+                'label' => 'Host',
+                'required' => false,
+
+            ))
+            ->add('port', IntegerType::class, array(
+                'label' => 'Port',
+                'required' => false,
+
             ))
             ->add('tipo', EntityType::class, array(
                 'class' => TipoVuln::class,

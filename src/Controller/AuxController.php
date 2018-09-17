@@ -60,6 +60,11 @@ class AuxController extends Controller
     			die();
     		}
 
+            $this->addFlash(
+                    'notice',
+                    'Importación realizada con éxito!'
+                );
+
 	        return $this->redirectToRoute('escaneo');
 
     	}

@@ -39,6 +39,8 @@ class TipoVulnType extends AbstractType
             'required' => false,
             'attr' => array('rows' => 10),
             ))
+            ->add('idSerpico')
+            ->add('idNessus')
 
 
         ;

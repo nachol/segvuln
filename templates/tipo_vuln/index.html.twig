@@ -17,6 +17,8 @@
                 <th class="col-md-2">Id</th>
                 <th class="col-md-3">Descripción</th>
                 <th class="col-md-3">Criticidad</th>
+                <th class="col-md-1">Id Serpico</th>
+                <th class="col-md-1">Id Nessus</th>
                 <th class="col-md-2 text-center">
                    <a type="button" class="btn btn-primary btn-sm pull-right" aria-label="Left Align" href="{{ path('new_tipo_vuln') }}">
                     <span class="fa fa-plus" aria-hidden="true"></span>
@@ -29,6 +31,9 @@
                 <td>{{ entidad.id }}</td>
                 <td>{{ entidad.descripcion }}</td>
                 <td>{{ entidad.getStringCriticidad }}</td>
+                <td>{{ entidad.idSerpico }}</td>
+                <td>{{ entidad.idNessus }}</td>
+
                 <td class="text-center">
                     <a type="button" class="btn btn-default" aria-label="Left Align" href="
                     {{ path('edit_tipo_vuln', {'id':entidad.id}) }}">
