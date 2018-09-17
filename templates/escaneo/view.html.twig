@@ -20,12 +20,13 @@
       </div>
     </div>
     <div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-12 col-md-offset-1">
       <table class="table table-hover" id="myTable">
                 <thead>
                 <th class="col-md-3">Fecha</th>
                 <th class="col-md-3">Modificacion</th>
-                <th class="col-md-3">Host</th>
+                <th class="col-md-2">Host</th>
+                <th class="col-md-2">Port</th>
                 <th class="col-md-3">Estado</th>
                 <th class="col-md-3">Vulnerabilidad</th>
                 <th class="col-md-3">Criticidad</th>
@@ -37,8 +38,9 @@
                             <td>{{ vuln.fechaCreacion|date('d-m-Y') }}</td>
                             <td>{{ vuln.fechaCreacion|date('d-m-Y') }}</td>
                             <td>{{ vuln.ip}}</td>
+                            <td>{{ vuln.port}}</td>
                             <td>{{ vuln.getStringEstado}}</td>
-                            <td><a href="{{ path('view_tipo_vuln', {'id' : vuln.id})}}">{{ vuln.tipo.descripcion}}</a></td>
+                            <td><a href="{{ path('view_tipo_vuln', {'id' : vuln.tipo.id})}}">{{ vuln.tipo.descripcion}}</a></td>
                             <td>{{ vuln.tipo.getStringCriticidad}}</td>
                         </tr>
                     {% endfor %}

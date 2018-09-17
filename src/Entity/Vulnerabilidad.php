@@ -62,6 +62,11 @@ class Vulnerabilidad
      */
     private $ip;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $port;
+
     private $cantidad;
 
     /**
@@ -189,6 +194,26 @@ class Vulnerabilidad
     public function setIp($ip)
     {
         $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
+
+    /**
+     * @param mixed $fechaModificacion
+     *
+     * @return self
+     */
+    public function setPort($port)
+    {
+        $this->port = $port;
 
         return $this;
     }

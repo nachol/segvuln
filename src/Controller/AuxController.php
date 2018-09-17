@@ -63,11 +63,18 @@ class AuxController extends Controller
 	        return $this->redirectToRoute('escaneo');
 
     	}
+        $this->addFlash(
+                    'error',
+                    'Error al importar el escaneo!'
+                );
+        return $this->redirectToRoute('escaneo');
+
     }
 
 
     public function nessus_importer($xml, $plataforma)
     {
+
     	//Creo el escaneo
     	$escaneo = new Escaneo();
     	$escaneo->setFecha(new \DateTime('now'));
@@ -78,29 +85,36 @@ class AuxController extends Controller
     	$em = $this->getDoctrine()->getManager();
 
     	foreach ($xml->Report->ReportHost as $host) {
-    		$fecha_creacion = new \DateTime((string)end($host->HostProperties->tag)); //"Fri Sep 14 00:21:38 2018"
-    		$ip = $host->attributes()[0];
+
+            $fecha_creacion = new \DateTime((string)end($host->HostProperties->tag)); //"Fri Sep 14 00:21:38 2018"
+    		$ip = $host->attributes()->name;
     		foreach ($host->ReportItem as $vuln) {
 
-    			if((array_key_exists('cvss3_base_score', $vuln))){
-    				$cvss3_base_score = (float)$vuln->cvss3_base_score;
-    			}elseif((array_key_exists('cvss_base_score', $vuln))){
-    				$cvss3_base_score = (float)$vuln->cvss_base_score;
-    			}else{
-    				continue;
-    			}
 
-    			if($cvss3_base_score < 4){
-    				continue;
-    			}
+    			// if((array_key_exists('cvss3_base_score', $vuln))){
+    			// 	$cvss3_base_score = (float)$vuln->cvss3_base_score;
+    			// }elseif((array_key_exists('cvss_base_score', $vuln))){
+    			// 	$cvss3_base_score = (float)$vuln->cvss_base_score;
+    			// }else{
+    			// 	continue;
+    			// }
 
+    			// if($cvss3_base_score < 4){
+    			// 	continue;
+    			// }
 
-    			$name = (string) $vuln->plugin_name;
+                $severidad = $vuln->attributes()->severity; 
+                if( $severidad < 2){
+                    continue;
+                }
+
+                $port = (int)$vuln->attributes()->port;
+    			$name = (string) $vuln->attributes()->pluginName;
     			$description = (string) $vuln->description;
     			$solution = (string) $vuln->solution;
     			$synopsys = (string) $vuln->synopsis;
     			$output =  (string) $vuln->plugin_output;
-    			$nessus_id = (string) $vuln->fname;
+    			$nessus_id = (string) $vuln->attributes()->pluginID;
 
     			$tipo_vuln = $this->getDoctrine()->getManager()->getRepository(TipoVuln::class)->findByNessusID($nessus_id);
     			
@@ -117,19 +131,19 @@ class AuxController extends Controller
     				$tipo_vuln->setMitigacion($solution);
     				
 
-    				if( $cvss3_base_score <= 6){
+    				if( $severidad == 2){
     					$tipo_vuln->setCriticidad(2);
-    				}elseif($cvss3_base_score >= 9){
-    					$tipo_vuln->setCriticidad(0);
-    				}else{
+    				}elseif($severidad == 3){
     					$tipo_vuln->setCriticidad(1);
+    				}elseif($severidad > 3){
+    					$tipo_vuln->setCriticidad(0);
     				}
 
     				$vulnerabilidad->setTipo($tipo_vuln);
 
     				$em->persist($tipo_vuln);
     			}
-
+                $vulnerabilidad->setPort($port);
     			$vulnerabilidad->setEstado(1);
     			$vulnerabilidad->setFechaCreacion($fecha_creacion);
     			$vulnerabilidad->setEscaneo($escaneo);
@@ -140,9 +154,12 @@ class AuxController extends Controller
     			$escaneo->addVulnerabilidad($vulnerabilidad);
     		}
     	}
+        //dump($escaneo);die;
     	$em->persist($escaneo);
 		$em->flush();
-    	// try{
+    	
+
+        // try{
     	// 	$em->persist($escaneo);
     	// 	$em->flush();
     	// 	$this->addFlash(
