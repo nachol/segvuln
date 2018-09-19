@@ -33,6 +33,7 @@
 					{% for entidad in entidades %}
 						<tr>
 							<td>{{ entidad.nombre }}</td>
+							<td>{{ entidad.getStringTipo }}</td>
 							<td>{{ entidad.getStringRiesgo }}</td>
 							<td>{{ entidad.deteccion|date('d-m-Y')}}</td>
 							<td>
