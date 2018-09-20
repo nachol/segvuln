@@ -82,8 +82,6 @@ class AuxController extends Controller
 
     	//Creo el escaneo
     	$escaneo = new Escaneo();
-    	$escaneo->setFecha(new \DateTime('now'));
-    	$escaneo->setDescripcion("[".$plataforma."] Importacion Nessus ".$escaneo->getFecha()->format('Y-m-d'));
     	$tipo_escaneo = $this->getDoctrine()->getManager()->getRepository(TipoEscaneo::class)->findByDescripcion('Infraestructura');
     	$escaneo->setTipo($tipo_escaneo[0]);
     	$escaneo->setPlataforma($plataforma);
@@ -93,6 +91,10 @@ class AuxController extends Controller
 
             $fecha_creacion = new \DateTime((string)end($host->HostProperties->tag)); //"Fri Sep 14 00:21:38 2018"
     		$ip = $host->attributes()->name;
+            $escaneo->setFecha($fecha_creacion);
+            $escaneo->setDescripcion("[".$plataforma."] Importacion Nessus ".$escaneo->getFecha()->format('Y-m-d'));
+
+
     		foreach ($host->ReportItem as $vuln) {
 
 

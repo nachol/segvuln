@@ -55,7 +55,8 @@ class VulnerabilidadType extends AbstractType
             ->add('fechaModificacion', DateType::class,  array(
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
-                'attr' => ['class' => 'datepicker']
+                'attr' => ['class' => 'datepicker'],
+                'required' => false,
                 // 'data' => new \DateTime('now')
             ))
             ->add('comentario')
