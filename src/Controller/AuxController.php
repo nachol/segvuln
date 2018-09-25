@@ -156,9 +156,10 @@ class AuxController extends Controller
     			$vulnerabilidad->setFechaCreacion($fecha_creacion);
     			// $vulnerabilidad->setEscaneo($escaneo);
     			$vulnerabilidad->setIp((string)$ip);
-    			$em->persist($vulnerabilidad);
-
-
+                if($excaneo->getVulnerabilidades()->exists($vulnerabilidad)){
+                    continue;
+                }
+                $em->persist($vulnerabilidad);
     			$escaneo->addVulnerabilidad($vulnerabilidad);
     		}
     	}
