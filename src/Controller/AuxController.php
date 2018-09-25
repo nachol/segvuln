@@ -88,12 +88,11 @@ class AuxController extends Controller
     	$em = $this->getDoctrine()->getManager();
 
     	foreach ($xml->Report->ReportHost as $host) {
-
+            $hoy = new \DateTime("now");
             $fecha_creacion = new \DateTime((string)end($host->HostProperties->tag)); //"Fri Sep 14 00:21:38 2018"
     		$ip = $host->attributes()->name;
             $escaneo->setFecha($fecha_creacion);
-            $escaneo->setDescripcion("[".$plataforma."] Importacion Nessus ".$escaneo->getFecha()->format('Y-m-d'));
-
+            $escaneo->setDescripcion("[".(string)$xml->Report->attributes()->name."] Importacion Nessus ".$hoy->format('Y-m-d'));
 
     		foreach ($host->ReportItem as $vuln) {
 
