@@ -133,7 +133,9 @@ class AuxController extends Controller
     				$tipo_vuln = new TipoVuln();
     				$tipo_vuln->setIdNessus($nessus_id);
     				$tipo_vuln->setDescripcion($name);
-    				$tipo_vuln->setDetalle($description . "\n____________________________\n" .$output);
+    				// $tipo_vuln->setDetalle($description . "\n____________________________\n" .$output);
+                    $tipo_vuln->setDetalle($description);
+
     				$tipo_vuln->setMitigacion($solution);
     				
 
@@ -152,7 +154,7 @@ class AuxController extends Controller
                 $vulnerabilidad->setPort($port);
     			$vulnerabilidad->setEstado(1);
     			$vulnerabilidad->setFechaCreacion($fecha_creacion);
-    			$vulnerabilidad->setEscaneo($escaneo);
+    			// $vulnerabilidad->setEscaneo($escaneo);
     			$vulnerabilidad->setIp((string)$ip);
     			$em->persist($vulnerabilidad);
 
