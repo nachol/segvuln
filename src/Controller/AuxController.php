@@ -89,25 +89,12 @@ class AuxController extends Controller
 
     	foreach ($xml->Report->ReportHost as $host) {
             $hoy = new \DateTime("now");
-            $fecha_creacion = new \DateTime((string)end($host->HostProperties->tag)); //"Fri Sep 14 00:21:38 2018"
+            $fecha_creacion = new \DateTime((string)end($host->HostProperties->tag));
     		$ip = $host->attributes()->name;
             $escaneo->setFecha($fecha_creacion);
             $escaneo->setDescripcion("[".(string)$xml->Report->attributes()->name."] Importacion Nessus ".$hoy->format('Y-m-d'));
 
     		foreach ($host->ReportItem as $vuln) {
-
-
-    			// if((array_key_exists('cvss3_base_score', $vuln))){
-    			// 	$cvss3_base_score = (float)$vuln->cvss3_base_score;
-    			// }elseif((array_key_exists('cvss_base_score', $vuln))){
-    			// 	$cvss3_base_score = (float)$vuln->cvss_base_score;
-    			// }else{
-    			// 	continue;
-    			// }
-
-    			// if($cvss3_base_score < 4){
-    			// 	continue;
-    			// }
 
                 $severidad = $vuln->attributes()->severity; 
                 if( $severidad < 2){
@@ -156,15 +143,16 @@ class AuxController extends Controller
     			$vulnerabilidad->setFechaCreacion($fecha_creacion);
     			// $vulnerabilidad->setEscaneo($escaneo);
     			$vulnerabilidad->setIp((string)$ip);
-                if($escaneo->getVulnerabilidades()->contains($vulnerabilidad)){
+
+                if($escaneo->vulnerabilidadExists($vulnerabilidad)){
                     continue;
+                    dump($vulnerabilidad);
                 }
                 
                 $em->persist($vulnerabilidad);
     			$escaneo->addVulnerabilidad($vulnerabilidad);
     		}
     	}
-        //dump($escaneo);die;
     	$em->persist($escaneo);
 		$em->flush();
     	
