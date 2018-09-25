@@ -178,4 +178,14 @@ class Escaneo
         
         return $this->plataforma->getDescripcion();
     }
+
+    public function vulnerabilidadExists($vulnerabilidad){
+        foreach ($this->getVulnerabilidades() as $vuln) {
+            if ($vuln->getIp() == $vulnerabilidad->getIp() and 
+                $vuln->getPort() == $vulnerabilidad->getPort() and
+                $vuln->getTipo()->getId() == $vulnerabilidad->getTipo()->getId()){
+                return true;
+            }
+        }
+    }
 }
