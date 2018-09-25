@@ -39,8 +39,8 @@
     <div class="col-md-12 col-md-offset-1">
         <table class="table table-hover" id="myTable">
             <thead>
-                <th class="col-md-1">Id</th>
-                <th class="col-md-2">Fecha</th>
+                <th class="col-md-2">Descripcion</th>
+                <th class="col-md-1">Fecha</th>
                 <th class="col-md-1">Tipo</th>
                 <th class="col-md-2">Plataforma</th>
                 <th class="col-md-1">Críticas</th>
@@ -69,7 +69,7 @@
                 {% for entidad in entidades %}
                 
                 <tr>
-                    <td data-toggle="tooltip" title="{{entidad.descripcion}}">{{ entidad.id }}</td>
+                    <td data-toggle="tooltip" title="ID: {{entidad.id}}">{{entidad.descripcion}}</td>
                     <td>{{ entidad.fecha|date('d-m-Y') }}</td>
                     <td>{{ entidad.tipo }}</td>
                     <td>{{ entidad.plataforma }}</td>
