@@ -116,3 +116,10 @@ $ php bin/console doctrine:schema:create
 		      }
 	  	    ]
 ```
+
+
+#Docker
+```
+docker-compose up --build
+```
+Lleva un tiempo la instalación de dependencias. Luego acceder a [http://127.0.0.1:8080/index.php](http://127.0.0.1:8080/index.php)

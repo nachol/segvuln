@@ -1,0 +1,9 @@
+version: "3"
+services:
+    site:
+        build: .
+        container_name: segvuln-docker
+        ports:
+            - "8080:80"
+        expose:
+            - "80"
