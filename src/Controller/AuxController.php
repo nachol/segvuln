@@ -114,7 +114,6 @@ class AuxController extends Controller
     			$vulnerabilidad = new Vulnerabilidad();
 
     			if ($tipo_vuln) {
-    				 // throw $this->createNotFoundException('No se ha encontrado el Tipo de Vuln seleccionado.');
     				$vulnerabilidad->setTipo($tipo_vuln[0]);
     			}else{
     				$tipo_vuln = new TipoVuln();
@@ -141,13 +140,12 @@ class AuxController extends Controller
                 $vulnerabilidad->setPort($port);
     			$vulnerabilidad->setEstado(1);
     			$vulnerabilidad->setFechaCreacion($fecha_creacion);
-    			// $vulnerabilidad->setEscaneo($escaneo);
     			$vulnerabilidad->setIp((string)$ip);
 
-                // if($escaneo->vulnerabilidadExists($vulnerabilidad)){
-                //     continue;
-                //     dump($vulnerabilidad);
-                // }
+                if($escaneo->vulnerabilidadExists($vulnerabilidad)){
+                    continue;
+                    dump($vulnerabilidad);
+                }
                 
                 $em->persist($vulnerabilidad);
     			$escaneo->addVulnerabilidad($vulnerabilidad);

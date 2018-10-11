@@ -181,9 +181,11 @@ class Escaneo
 
     public function vulnerabilidadExists($vulnerabilidad){
         foreach ($this->getVulnerabilidades() as $vuln) {
+            
             if ($vuln->getIp() == $vulnerabilidad->getIp() and 
                 $vuln->getPort() == $vulnerabilidad->getPort() and
-                $vuln->getTipo()->getId() == $vulnerabilidad->getTipo()->getId()){
+                $vuln->getTipo()->getIdNessus() == $vulnerabilidad->getTipo()->getIdNessus()){
+                
                 return true;
             }
         }
