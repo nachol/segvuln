@@ -7,10 +7,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Vulnerabilidad;
+use App\Entity\VampsAPI;
+
 
 
 class DefaultController extends Controller
 {
+    /**
+     * @Route("/test", name="test")
+     */
+    public function test($value='')
+    {
+        $vamps = new VampsAPI();
+        $vamps->getVulns();
+        
+    }
+
+
     /**
      * @Route("/", name="default")
      */

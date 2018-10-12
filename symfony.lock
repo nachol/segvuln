@@ -44,6 +44,9 @@
             "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
         }
     },
+    "doctrine/event-manager": {
+        "version": "v1.0.0"
+    },
     "doctrine/inflector": {
         "version": "v1.2.0"
     },
@@ -59,8 +62,17 @@
     "doctrine/orm": {
         "version": "v2.5.13"
     },
+    "doctrine/persistence": {
+        "version": "v1.0.1"
+    },
+    "doctrine/reflection": {
+        "version": "v1.0.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "nikic/php-parser": {
+        "version": "v4.0.3"
     },
     "ocramius/package-versions": {
         "version": "1.2.0"
@@ -79,6 +91,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.0"
+    },
+    "rmccue/requests": {
+        "version": "v1.7.0"
     },
     "sensio/framework-extra-bundle": {
         "version": "4.0",
@@ -182,6 +197,9 @@
     "symfony/intl": {
         "version": "v3.4.2"
     },
+    "symfony/ldap": {
+        "version": "v3.4.15"
+    },
     "symfony/lts": {
         "version": "v3"
     },
@@ -200,11 +218,17 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/polyfill-ctype": {
+        "version": "v1.9.0"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.6.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
+    },
+    "symfony/process": {
+        "version": "v3.4.1"
     },
     "symfony/property-access": {
         "version": "v3.4.2"
@@ -216,6 +240,18 @@
             "branch": "master",
             "version": "3.3",
             "ref": "a249484db698d1a847a30291c8f732414ac47e25"
+        }
+    },
+    "symfony/security": {
+        "version": "v3.4.15"
+    },
+    "symfony/security-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
     },
     "symfony/serializer": {
@@ -247,6 +283,15 @@
     },
     "symfony/var-dumper": {
         "version": "v3.4.2"
+    },
+    "symfony/web-server-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
+        }
     },
     "symfony/yaml": {
         "version": "v3.4.1"
