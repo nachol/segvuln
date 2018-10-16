@@ -14,13 +14,24 @@ use App\Entity\VampsAPI;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/test", name="test")
+     * @Route("/vamps/ocurrencias", name="ocurrencias_vamps")
      */
     public function test($value='')
     {
         $vamps = new VampsAPI();
-        $vamps->getVulns();
         
+        $clientes = $vamps->getClients();
+        $projects = $vamps->getProyects($clientes);
+
+        $vulns = $vamps->getVulns($projects, "active", "high", "critical");
+
+        #$vulns = $vamps->getVulns();
+
+        return ($this->render(
+            'vamps/index.html.twig', [
+                'vulns' => $vulns
+            ]
+        ));
     }
 
 

@@ -8,6 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Dotenv\Dotenv;
 use Requests;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class VampsAPI
 {
@@ -38,7 +42,7 @@ class VampsAPI
         return $this;
     }
 
-    public function getVulns($state='active', $cvss_severity="high", $priority_level="critical")
+    public function getVulns($projects=null, $state='active', $cvss_severity="high", $priority_level="critical")
     {
         $url= $this->host."/vulnerabilities/api/occurrences";
 
@@ -50,30 +54,76 @@ class VampsAPI
 
         $url = $url."&&api_key=".$this->api_key;
 
+        if($projects != null){
+
+            $vulns=[];
+            foreach ($projects as $p) {
+                $url2 = $url."&&search[project_id]=".$p;
+
+                $request = Requests::get($url2, $this->header);
+
+                $data = json_decode($request->body, true);
+
+                foreach ($data["occurrences"] as $o) {
+                    $vulns[] = $o;
+                }
+
+
+            }
+
+        }else{
+            $request = Requests::get($url, $this->header);
+
+            $data = json_decode($request->body, true);
+
+            foreach ($data["occurrences"] as $o) {
+              $vulns[] = $o;
+            }
+        }
+
+        return $vulns;
+    }
+
+    public function getClients($value='')
+    {
+        $url= $this->host."/vulnerabilities/api/clients";
+
+        $url = $url."?api_key=".$this->api_key;
 
         $request = Requests::get($url, $this->header);
 
-        dump($request->body);
+        $data = json_decode($request->body, true);
 
+        $clientes_productivos=[];
+        foreach ($data["clients"] as $cliente) {
+            if($cliente["client_type"]=="Producción"){
+                $clientes_productivos[] = $cliente["id"];
+            }
 
+        }
 
-
-// $headers = array('Accept' => 'application/json');
-// $options = array('auth' => array('user', 'pass'));
-// $request = Requests::get('https://api.github.com/gists', $headers, $options);
-
-// var_dump($request->status_code);
-// // int(200)
-
-// var_dump($request->headers['content-type']);
-// // string(31) "application/json; charset=utf-8"
-
-// var_dump($request->body);
-// // string(26891) "[...]"
-
-
-
+        return $clientes_productivos;
     }
 
+    public function getProyects($clientId)
+    {
+        $projects=[];
+
+        foreach ($clientId as $id) {
+            $url= $this->host."/vulnerabilities/api/projects";
+            $url = $url."?api_key=".$this->api_key;
+            $url = $url."&&client_id=".$id;
+
+            $request = Requests::get($url, $this->header);
+
+            $data = json_decode($request->body, true);
+
+            foreach ($data["projects"] as $i) {
+                $projects[] = $i["id"];
+            }
+
+        }
+        return $projects;
+    }
     
 }

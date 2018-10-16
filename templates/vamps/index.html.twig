@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ocurrencias Vamps{% endblock %}
+
+{% block body %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="#">Vamps</a>
+  </li>
+  <li class="breadcrumb-item active">Ocurrencias Vamps</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-12 col-md-offset-1">
+        <table class="table table-hover" id="myTable">
+            <thead>
+                <th class="col-sm-1">Id</th>
+                <th class="col-sm-2">Nombre</th>
+                <th class="col-sm-2">CVSS</th>
+                <th class="col-sm-2">Prioridad</th>
+
+
+
+            </thead>
+            <tbody>
+                {% for entidad in vulns %}
+                <tr>
+                    <td>{{ entidad["id"] }}</td>
+                    <td>{{ entidad["vulnerability_name"] }}</td>
+                    <td>{{ entidad["cvss_score"] }}</td>
+                    <td>{{ entidad["priority_level_range"] }}</td>
+                    
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+
+    </div>
+</div>
+
+{% endblock %}
