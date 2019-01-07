@@ -71,6 +71,12 @@ class NotificationType extends AbstractType
                 ),
                 'placeholder' => 'Choose an option',
             ))
+            ->add('investigacion', ChoiceType::class, array(
+                'choices' => array(
+                    'No' => 0,
+                    'Si' => 1,
+                ),
+            ))
             ->add('observaciones')
             ->add('referente')
         ;

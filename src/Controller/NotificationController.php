@@ -18,15 +18,17 @@ use Symfony\Component\HttpFoundation\Response;
 class NotificationController extends Controller
 {
     /**
-     * @Route("/", name="notification")
+     * @Route("/estado/{estado}", name="notification")
      */
-    public function index()
+    public function index($estado = 0)
     {
-        return ($this->render(
-            'notification/index.html.twig', [
-                'entidades' => $this->getDoctrine()->getManager()->getRepository(Notification::class)->findAll()
-                ]
-            ));
+	return ($this->render(
+	    'notification/index.html.twig', [
+	        //'entidades' => $this->getDoctrine()->getManager()->getRepository(Notification::class)->findAll()
+		'entidades' => $this->getDoctrine()->getManager()->getRepository(Notification::class)->findBy(["investigacion" => $estado])
+	        ]
+	    ));
+        
     }
 
     /**
@@ -82,7 +84,7 @@ class NotificationController extends Controller
             }
             
             
-            return $this->redirectToRoute('notification');
+            return $this->redirectToRoute('notification', ["estado" => $notifications->getInvestigacion()]);
  
         }
 
@@ -142,19 +144,20 @@ class NotificationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
         	$em = $this->getDoctrine()->getManager();
         	try{
-        		$em->persist($notification);
+		$em->persist($notification);
                 $em->flush();
 
                 $this->addFlash(
                     'notice',
                     'Registro editado exitosamente!'
                 );
-                return $this->redirectToRoute('notification');
+                return $this->redirectToRoute('notification', ["estado" => $notification->getInvestigacion()]);
         	}catch (\Exception $ex) {
                 $this->addFlash(
                     'error',
                     'Error al tratar de editar el registro!'
                 );
+
                 return $this->redirectToRoute('notification');
             }
         }
@@ -191,13 +194,13 @@ class NotificationController extends Controller
                     'notice',
                     'Registro borrado exitosamente!'
                 );
-            return $this->redirectToRoute('notification'); 
+            return $this->redirectToRoute('notification', ["estado" => $notification->getInvestigacion()]); 
         } catch (\Exception $ex) {
             $this->addFlash(
                     'error',
                     'Error al intentar borrar el registro!'
                 );
-            return $this->redirectToRoute('notification'); 
+            return $this->redirectToRoute('notification', ["estado" => $notification->getInvestigacion()]); 
         }
         
     }

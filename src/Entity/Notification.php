@@ -83,6 +83,16 @@ class Notification
     private $estado;
 
     /**
+     * @ORM\Column(type="integer", nullable=true, options={"default"=0})
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 1
+     * )
+     * 0-Otro, 1-Investigacion
+     */
+    private $investigacion;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observaciones;
@@ -165,6 +175,18 @@ class Notification
     public function setEstado(int $estado): self
     {
         $this->estado = $estado;
+
+        return $this;
+    }
+
+    public function getInvestigacion(): ?int
+    {
+        return $this->investigacion;
+    }
+
+    public function setInvestigacion(int $investigacion): self
+    {
+        $this->investigacion = $investigacion;
 
         return $this;
     }

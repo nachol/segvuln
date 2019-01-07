@@ -66,8 +66,11 @@
               <li>
                 <a href="{{ path('cyberthreats') }}">CyberThreats</a>
               </li>
+	      <li>
+                <a href="{{ path('notification', {'estado':1}) }}">Investigacion</a>
+              </li>
               <li>
-                <a href="{{ path('notification') }}">Otros</a>
+                <a href="{{ path('notification', {'estado':0}) }}">Otros</a>
               </li>
             </ul>
       </li>
