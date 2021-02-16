@@ -1,3 +1,5 @@
+# DEPRECATED
+
 *Seg*uimineto de *Vuln*erabilidades
 =========================================
 
